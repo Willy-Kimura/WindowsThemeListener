@@ -30,18 +30,32 @@ namespace Library.Demo
         {
             lblWindowsModeVal.Text = ThemeListener.WindowsMode.ToString();
             lblAppModeVal.Text = ThemeListener.AppMode.ToString();
-            lblAAccentColorVal.Text = ThemeListener.AccentColor.ToString();
+            lblAccentColorVal.Text = ThemeListener.AccentColor.ToString();
+            lblAccentForeColorVal.Text = ThemeListener.AccentForeColor.ToString();
 
-            TransitionColor(ThemeListener.AccentColor);
+            TransitionColors(ThemeListener.AccentColor, ThemeListener.AccentForeColor);
         }
 
         /// <summary>
         /// Transitions the form's background color to another.
         /// </summary>
         /// <param name="color"></param>
-        public void TransitionColor(Color color)
+        public void TransitionColors(Color backColor, Color foreColor)
         {
-            Transition.run(this, "BackColor", color, new TransitionType_EaseInEaseOut(330));
+            Transition.run(this, "BackColor", backColor, new TransitionType_EaseInEaseOut(330));
+            Transition labelTransitions = new Transition(new TransitionType_EaseInEaseOut(330));
+
+            labelTransitions.add(lblTitle, "ForeColor", foreColor);
+            labelTransitions.add(lblAccentColor, "ForeColor", foreColor);
+            labelTransitions.add(lblAccentColorVal, "ForeColor", foreColor);
+            labelTransitions.add(lblAppMode, "ForeColor", foreColor);
+            labelTransitions.add(lblAppModeVal, "ForeColor", foreColor);
+            labelTransitions.add(lblWindowsMode, "ForeColor", foreColor);
+            labelTransitions.add(lblWindowsModeVal, "ForeColor", foreColor);
+            labelTransitions.add(lblAccentForeColor, "ForeColor", foreColor);
+            labelTransitions.add(lblAccentForeColorVal, "ForeColor", foreColor);
+
+            labelTransitions.run();
         }
 
         #endregion
@@ -50,11 +64,12 @@ namespace Library.Demo
 
         private void OnWindowsThemeChanged(object sender, ThemeListener.ThemeChangedEventArgs e)
         {
-            TransitionColor(e.NewAccentColor);
+            TransitionColors(e.NewAccentColor, e.NewAccentForeColor);
 
             lblWindowsModeVal.Text = e.NewWindowsMode.ToString();
-            lblAppMode.Text = e.NewAppMode.ToString();
-            lblAAccentColorVal.Text = e.NewAccentColor.ToString();
+            lblAppModeVal.Text = e.NewAppMode.ToString();
+            lblAccentColorVal.Text = e.NewAccentColor.ToString();
+            lblAccentForeColorVal.Text = e.NewAccentForeColor.ToString();
         }
 
         #endregion

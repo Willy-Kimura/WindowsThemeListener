@@ -36,18 +36,13 @@ namespace WK.Libraries.WTL.Helpers
             if (toWatch.Length > 0)
             {
                 currentRegValues = toWatch.ToDictionary(key => key, key => Registry.GetValue(key.Item1, key.Item2, null));
-                timer = new Timer(CheckRegistry, null, period, Timeout.Infinite);
+                timer = new Timer(CheckRegistry, null, Period, Timeout.Infinite);
             }
         }
 
         #endregion
 
         #region Fields
-
-        /// <summary>
-        /// The period in millseconds between Registry polls.
-        /// </summary>
-        public int period = 3000;
 
         /// <summary>
         /// The current Registry values to be compared against.
@@ -63,6 +58,15 @@ namespace WK.Libraries.WTL.Helpers
         /// The timer to trigger Registry polls.
         /// </summary>
         private readonly Timer timer;
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// The period in millseconds between Registry polls.
+        /// </summary>
+        public int Period { get; set; } = 3000;
 
         #endregion
 
@@ -97,7 +101,7 @@ namespace WK.Libraries.WTL.Helpers
                 }
             }
 
-            timer.Change(period, Timeout.Infinite);
+            timer.Change(Period, Timeout.Infinite);
         }
 
         #endregion
