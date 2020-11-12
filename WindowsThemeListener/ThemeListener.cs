@@ -59,25 +59,25 @@ namespace WK.Libraries.WTL
 
             TransparencyEnabled = GetTransparency();
 
-            _watcher = new RegistryWatcher(
-                new Tuple<string, string>(_regKey, _transparencyKey),
-                new Tuple<string, string>(_regKey, _appsLightThemeKey),
-                new Tuple<string, string>(_regKey, _sysLightThemeKey),
-                new Tuple<string, string>(_regKey2, _accentColorKey));
+            _watcher = new RegistryMonitor(RegistryHive.CurrentUser, "Software\\Microsoft\\Windows");
+            _watcher.RegistryChanged += OnRegistryChanged;
+
+            Enabled = _enabled;
 
             _invoker.CreateControl();
-            _watcher.RegistryChanged += RegistryChanged;
         }
 
         #endregion
 
         #region Fields
 
+        private static bool _enabled = true;
+        private static bool _transparencyEnabled;
+
         private static ThemeModes _winThemeMode;
         private static ThemeModes _appsThemeMode;
         private static ThemeModes _nwWinThemeMode;
         private static ThemeModes _nwAppsThemeMode;
-        private static bool _transparencyEnabled;
 
         private static Color _accentColor;
         private static Color _nwAccentColor;
@@ -89,7 +89,7 @@ namespace WK.Libraries.WTL
         private static string _regKey = @"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize";
         private static string _regKey2 = @"HKEY_CURRENT_USER\Software\Microsoft\Windows\DWM";
 
-        private static RegistryWatcher _watcher;
+        private static RegistryMonitor _watcher;
         private static UserControl _invoker = new UserControl();
 
         #endregion
@@ -119,13 +119,19 @@ namespace WK.Libraries.WTL
         /// <summary>
         /// Gets or sets a value indicating whether <see cref="ThemeListener"/> is enabled.
         /// </summary>
-        public static bool Enabled { get; set; } = true;
+        public static bool Enabled
+        {
+            get => _enabled;
+            set
+            {
+                _enabled = value;
 
-        /// <summary>
-        /// Gets or sets the period in millseconds between Registry polls. 
-        /// Default is 10,000 ms (10 seconds).
-        /// </summary>
-        public static int PollingInterval { get; set; } = 10000;
+                if (_enabled)
+                    _watcher.Start();
+                else
+                    _watcher.Stop();
+            }
+        }
 
         /// <summary>
         /// Gets the currently applied applications theme mode.
@@ -231,6 +237,14 @@ namespace WK.Libraries.WTL
             return _transparencyEnabled;
         }
 
+        /// <summary>
+        /// Gets a Registry key value.
+        /// </summary>
+        private static object GetKeyValue(string path, string key)
+        {
+            return Registry.GetValue(path, key, 0);
+        }
+
         #endregion
 
         #endregion
@@ -261,21 +275,21 @@ namespace WK.Libraries.WTL
             /// <summary>
             /// Initializes a new instance of the <see cref="RegistryChangeEventArgs"/> class.
             /// </summary>
-            /// <param name="oldAppsTheme">The previously set Apps theme.</param>
-            /// <param name="oldSysTheme">The previously set System theme.</param>
+            /// <param name="oldAppsMode">The previously set Apps theme.</param>
+            /// <param name="oldWinMode">The previously set System theme.</param>
             /// <param name="oldAccentColor">The previously set accent color.</param>
-            /// <param name="newAppsTheme">The newly set Apps theme.</param>
-            /// <param name="newSysTheme">The newly set System theme.</param>
+            /// <param name="newAppsMode">The newly set Apps theme.</param>
+            /// <param name="newWinMode">The newly set System theme.</param>
             /// <param name="newAccentColor">The newly set accent color.</param>
             public ThemeChangedEventArgs(
-                ThemeModes oldAppsTheme, ThemeModes oldSysTheme, Color oldAccentColor,
-                ThemeModes newAppsTheme, ThemeModes newSysTheme, Color newAccentColor)
+                ThemeModes oldAppsMode, ThemeModes oldWinMode, Color oldAccentColor,
+                ThemeModes newAppsMode, ThemeModes newWinMode, Color newAccentColor)
             {
-                OldAppMode = oldAppsTheme;
-                OldWindowsMode = oldSysTheme;
+                OldAppMode = oldAppsMode;
+                OldWindowsMode = oldWinMode;
                 OldAccentColor = oldAccentColor;
-                NewAppMode = newAppsTheme;
-                NewWindowsMode = newSysTheme;
+                NewAppMode = newAppsMode;
+                NewWindowsMode = newWinMode;
                 NewAccentColor = newAccentColor;
             }
 
@@ -325,43 +339,35 @@ namespace WK.Libraries.WTL
         /// <summary>
         /// Raised whenever the theming Registry keys have changed.
         /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="args">The <see cref="RegistryWatcher.RegistryChangeEventArgs"/> instance containing the event data.</param>
-        private static void RegistryChanged(object sender, RegistryWatcher.RegistryChangeEventArgs args)
+        private static void OnRegistryChanged(object sender, EventArgs e)
         {
-            if (Enabled)
+            object sysTheme = GetKeyValue(_regKey, _sysLightThemeKey);
+            object appsTheme = GetKeyValue(_regKey, _appsLightThemeKey);
+            object accentColor = GetKeyValue(_regKey2, _accentColorKey);
+            
+            if (sysTheme.ToString() == _sysLightThemeKey)
+                _nwWinThemeMode = GetTheme((int)sysTheme);
+
+            if (appsTheme.ToString() == _appsLightThemeKey)
+                _nwAppsThemeMode = GetTheme((int)appsTheme);
+
+            if (accentColor.ToString() == _accentColorKey)
+                _nwAccentColor = ColorTranslator.FromWin32(Convert.ToInt32(accentColor));
+
+            if (_winThemeMode != _nwWinThemeMode ||
+                _appsThemeMode != _nwAppsThemeMode ||
+                _accentColor != _nwAccentColor)
             {
-                if (_invoker.Created)
-                {
-                    _invoker.Invoke((Action)delegate
-                    {
-                        if (args.ValueName == _sysLightThemeKey)
-                            _nwWinThemeMode = GetTheme((int)args.Value);
+                MessageBox.Show("Test");
+                ThemeChanged?.Invoke(_watcher,
+                    new ThemeChangedEventArgs(
+                        _appsThemeMode, _winThemeMode,
+                        _accentColor, _nwAppsThemeMode,
+                        _nwWinThemeMode, _nwAccentColor));
 
-                        if (args.ValueName == _appsLightThemeKey)
-                            _nwAppsThemeMode = GetTheme((int)args.Value);
-
-                        if (args.ValueName == _accentColorKey)
-                        {
-                            _nwAccentColor = ColorTranslator.FromWin32(Convert.ToInt32(args.Value));
-                        }
-
-                        if (_winThemeMode != _nwWinThemeMode || 
-                            _appsThemeMode != _nwAppsThemeMode || 
-                            _accentColor != _nwAccentColor)
-                        {
-                            ThemeChanged?.Invoke(_watcher,
-                                new ThemeChangedEventArgs(
-                                    _appsThemeMode, _winThemeMode,
-                                    _accentColor, _nwAppsThemeMode,
-                                    _nwWinThemeMode, _nwAccentColor));
-
-                            _winThemeMode = _nwWinThemeMode;
-                            _appsThemeMode = _nwAppsThemeMode;
-                            _accentColor = _nwAccentColor;
-                        }
-                    });
-                }
+                _winThemeMode = _nwWinThemeMode;
+                _appsThemeMode = _nwAppsThemeMode;
+                _accentColor = _nwAccentColor;
             }
         }
 
