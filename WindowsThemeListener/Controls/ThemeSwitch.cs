@@ -10,7 +10,7 @@
  * gitee：https://gitee.com/kwwwvagaa/net_winform_custom_control.git
  * 
  * Copyright (c) Huang Zhenghui(黄正辉)
- * [RSV] Improved for Windows Theme Listener.
+ * [UPD] Improved for Windows Theme Listener.
  * 
  */
 
