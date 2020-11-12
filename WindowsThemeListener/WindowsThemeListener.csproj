@@ -47,7 +47,7 @@
       <DependentUpon>ThemeSwitch.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\OS.cs" />
-    <Compile Include="Helpers\RegistryWatcher.cs" />
+    <Compile Include="Helpers\RegistryMonitor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ThemeListener.cs" />
   </ItemGroup>

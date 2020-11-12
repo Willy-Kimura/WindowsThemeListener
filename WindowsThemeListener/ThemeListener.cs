@@ -59,7 +59,7 @@ namespace WK.Libraries.WTL
 
             TransparencyEnabled = GetTransparency();
 
-            _watcher = new RegistryWatcher(
+            _watcher = new RegistryMonitor(
                 new Tuple<string, string>(_regKey, _transparencyKey),
                 new Tuple<string, string>(_regKey, _appsLightThemeKey),
                 new Tuple<string, string>(_regKey, _sysLightThemeKey),
@@ -81,8 +81,6 @@ namespace WK.Libraries.WTL
 
         private static Color _accentColor;
         private static Color _nwAccentColor;
-        private static Color _accentForeColor;
-        private static Color _nwAccentForeColor;
 
         private static string _accentColorKey = "AccentColor";
         private static string _transparencyKey = "EnableTransparency";
@@ -91,7 +89,7 @@ namespace WK.Libraries.WTL
         private static string _regKey = @"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize";
         private static string _regKey2 = @"HKEY_CURRENT_USER\Software\Microsoft\Windows\DWM";
 
-        private static RegistryWatcher _watcher;
+        private static RegistryMonitor _watcher;
         private static UserControl _invoker = new UserControl();
 
         #endregion
@@ -370,8 +368,8 @@ namespace WK.Libraries.WTL
         /// Raised whenever the theming Registry keys have changed.
         /// </summary>
         /// <param name="sender">The sender.</param>
-        /// <param name="args">The <see cref="RegistryWatcher.RegistryChangeEventArgs"/> instance containing the event data.</param>
-        private static void RegistryChanged(object sender, RegistryWatcher.RegistryChangeEventArgs args)
+        /// <param name="args">The <see cref="RegistryMonitor.RegistryChangeEventArgs"/> instance containing the event data.</param>
+        private static void RegistryChanged(object sender, RegistryMonitor.RegistryChangeEventArgs args)
         {
             if (Enabled)
             {
