@@ -67,7 +67,7 @@ namespace WK.Libraries.WTL.Controls
         private Color _uncheckedForeColor = Color.White;
         private Color _uncheckedColor = Color.FromArgb(189, 189, 189);
 
-        private SwitchTypes _Type = SwitchTypes.Round;
+        private SwitchTypes _type = SwitchTypes.Round;
 
         #endregion
 
@@ -105,7 +105,7 @@ namespace WK.Libraries.WTL.Controls
         [Description("Sets the checked switch color.")]
         public Color CheckedColor
         {
-            get { return _checkedColor; }
+            get => _checkedColor;
             set
             {
                 _checkedColor = value;
@@ -121,7 +121,7 @@ namespace WK.Libraries.WTL.Controls
         [Description("Sets the checked switch fore color.")]
         public Color CheckedForeColor
         {
-            get { return _checkedTextColor; }
+            get => _checkedTextColor;
             set
             {
                 _checkedTextColor = value;
@@ -137,7 +137,7 @@ namespace WK.Libraries.WTL.Controls
         [Description("Sets the unchecked switch color.")]
         public Color UncheckedColor
         {
-            get { return _uncheckedColor; }
+            get => _uncheckedColor;
             set
             {
                 _uncheckedColor = value;
@@ -153,7 +153,7 @@ namespace WK.Libraries.WTL.Controls
         [Description("Sets the checked switch fore color.")]
         public Color UncheckedForeColor
         {
-            get { return _uncheckedForeColor; }
+            get => _uncheckedForeColor;
             set
             {
                 _uncheckedForeColor = value;
@@ -169,15 +169,14 @@ namespace WK.Libraries.WTL.Controls
         [Description("Sets a value indicating whether the switch is checked.")]
         public bool Checked
         {
-            get { return _checked; }
+            get => _checked;
             set
             {
                 _checked = value;
+
                 Refresh();
-                if (CheckedChanged != null)
-                {
-                    CheckedChanged(this, null);
-                }
+
+                CheckedChanged?.Invoke(this, null);
             }
         }
 
@@ -188,10 +187,11 @@ namespace WK.Libraries.WTL.Controls
         [Description("Sets the checked and unchecked texts respectively.")]
         public string[] Texts
         {
-            get { return _texts; }
+            get => _texts;
             set
             {
                 _texts = value;
+
                 Refresh();
             }
         }
@@ -203,10 +203,11 @@ namespace WK.Libraries.WTL.Controls
         [Description("Sets the switch design type.")]
         public SwitchTypes Type
         {
-            get { return _Type; }
+            get => _type;
             set
             {
-                _Type = value;
+                _type = value;
+
                 Refresh();
             }
         }
@@ -218,13 +219,11 @@ namespace WK.Libraries.WTL.Controls
         [Description("Sets the switch text font.")]
         public override Font Font
         {
-            get
-            {
-                return base.Font;
-            }
+            get => base.Font;
             set
             {
                 base.Font = value;
+
                 Refresh();
             }
         }
@@ -241,7 +240,7 @@ namespace WK.Libraries.WTL.Controls
         /// Occurs whenever the switch is checked.
         /// </summary>
         [Category("Switch Events")]
-        [Description("Occurs whenever the switch it checked.")]
+        [Description("Occurs whenever the switch is checked.")]
         public event EventHandler CheckedChanged;
 
         #endregion
@@ -264,7 +263,7 @@ namespace WK.Libraries.WTL.Controls
             grp.InterpolationMode = InterpolationMode.HighQualityBicubic;
             grp.CompositingQuality = CompositingQuality.HighQuality;
 
-            if (_Type == SwitchTypes.Round)
+            if (_type == SwitchTypes.Round)
             {
                 var fillColor = _checked ? _checkedColor : _uncheckedColor;
                 GraphicsPath path = new GraphicsPath();
@@ -308,7 +307,7 @@ namespace WK.Libraries.WTL.Controls
                     }
                 }
             }
-            else if (_Type == SwitchTypes.Flat)
+            else if (_type == SwitchTypes.Flat)
             {
                 var fillColor = _checked ? _checkedColor : _uncheckedColor;
                 GraphicsPath path = new GraphicsPath();
