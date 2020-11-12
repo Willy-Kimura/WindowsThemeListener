@@ -53,7 +53,7 @@ namespace Library.Demo
             TransitionColor(e.NewAccentColor);
 
             lblWindowsModeVal.Text = e.NewWindowsMode.ToString();
-            lblAppMode.Text = e.NewAppMode.ToString();
+            lblAppModeVal.Text = e.NewAppMode.ToString();
             lblAAccentColorVal.Text = e.NewAccentColor.ToString();
         }
 
