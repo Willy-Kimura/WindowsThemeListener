@@ -1,4 +1,16 @@
-﻿using System;
+﻿#region Copyright
+
+/*
+ * Developer    : Willy Kimura
+ * Library      : Windows Theme Listener
+ * License      : MIT
+ * 
+ */
+
+#endregion
+
+
+using System;
 using System.Linq;
 using Microsoft.Win32;
 using System.Threading;

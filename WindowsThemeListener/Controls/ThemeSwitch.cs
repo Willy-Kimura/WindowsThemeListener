@@ -1,21 +1,18 @@
 ﻿#region Copyright
 
-// ***********************************************************************
-// Assembly         : HZH_Controls
-// Created          : 08-19-2019
-// Modified By      : Willy Kimura
-//
-// ***********************************************************************
-// <copyright file="UCSwitch.cs">
-//     Copyright by Huang Zhenghui(黄正辉) All, QQ group:568015492 QQ:623128629 Email:623128629@qq.com
-// </copyright>
-//
-// Blog: https://www.cnblogs.com/bfyx
-// GitHub：https://github.com/kwwwvagaa/NetWinformControl
-// gitee：https://gitee.com/kwwwvagaa/net_winform_custom_control.git
-//
-// If you use this code, please keep this note.
-// ***********************************************************************
+/*
+ * Developer    : Huang Zhenghui(黄正辉) All, QQ group:568015492 QQ:623128629 Email:623128629@qq.com
+ * Library      : HZH_Controls
+ * License      : MIT
+ * 
+ * Blog: https://www.cnblogs.com/bfyx
+ * GitHub：https://github.com/kwwwvagaa/NetWinformControl
+ * gitee：https://gitee.com/kwwwvagaa/net_winform_custom_control.git
+ * 
+ * Copyright (c) Huang Zhenghui(黄正辉)
+ * [RSV] Improved for Windows Theme Listener.
+ * 
+ */
 
 #endregion
 
@@ -29,14 +26,14 @@ using System.Drawing.Drawing2D;
 namespace WK.Libraries.WTL.Controls
 {
     /// <summary>
-    /// Implements a custom toggle theme switch control.
+    /// Implements a custom toggle switch control for WinForms apps.
     /// </summary>
     /// <seealso cref="System.Windows.Forms.UserControl" />
     [ToolboxItem(true)]
     [DefaultProperty("Checked")]
     [DefaultEvent("CheckedChanged")]
     [ToolboxBitmap(typeof(RadioButton))]
-    [Description("Implements a custom toggle theme switch control.")]
+    [Description("Implements a custom toggle switch control for WinForms apps.")]
     public partial class ThemeSwitch : UserControl
     {
         #region Constructor

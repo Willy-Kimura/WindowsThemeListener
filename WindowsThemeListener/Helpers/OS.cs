@@ -1,4 +1,16 @@
-﻿using Microsoft.Win32;
+﻿#region Copyright
+
+/*
+ * Developer    : Willy Kimura
+ * Library      : Windows Theme Listener
+ * License      : MIT
+ * 
+ */
+
+#endregion
+
+
+using Microsoft.Win32;
 using System.Diagnostics;
 
 namespace WK.Libraries.WTL.Helpers
