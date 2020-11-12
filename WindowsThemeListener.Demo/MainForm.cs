@@ -28,8 +28,8 @@ namespace Library.Demo
         /// </summary>
         public void UpdateThemeInfo()
         {
-            lblWindowsModeVal.Text = ThemeListener.WindowsTheme.ToString();
-            lblAppModeVal.Text = ThemeListener.AppsTheme.ToString();
+            lblWindowsModeVal.Text = ThemeListener.WindowsMode.ToString();
+            lblAppModeVal.Text = ThemeListener.AppMode.ToString();
             lblAAccentColorVal.Text = ThemeListener.AccentColor.ToString();
 
             TransitionColor(ThemeListener.AccentColor);
@@ -52,8 +52,8 @@ namespace Library.Demo
         {
             TransitionColor(e.NewAccentColor);
 
-            lblWindowsModeVal.Text = e.NewWindowsTheme.ToString();
-            lblAppMode.Text = e.NewAppsTheme.ToString();
+            lblWindowsModeVal.Text = e.NewWindowsMode.ToString();
+            lblAppMode.Text = e.NewAppMode.ToString();
             lblAAccentColorVal.Text = e.NewAccentColor.ToString();
         }
 

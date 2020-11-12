@@ -43,7 +43,7 @@
             this.lblWindowsMode.AutoSize = true;
             this.lblWindowsMode.Font = new System.Drawing.Font("Segoe UI Semibold", 9F);
             this.lblWindowsMode.ForeColor = System.Drawing.Color.Black;
-            this.lblWindowsMode.Location = new System.Drawing.Point(242, 197);
+            this.lblWindowsMode.Location = new System.Drawing.Point(184, 150);
             this.lblWindowsMode.Name = "lblWindowsMode";
             this.lblWindowsMode.Size = new System.Drawing.Size(94, 15);
             this.lblWindowsMode.TabIndex = 0;
@@ -55,7 +55,7 @@
             this.lblAppMode.AutoSize = true;
             this.lblAppMode.Font = new System.Drawing.Font("Segoe UI Semibold", 9F);
             this.lblAppMode.ForeColor = System.Drawing.Color.Black;
-            this.lblAppMode.Location = new System.Drawing.Point(242, 216);
+            this.lblAppMode.Location = new System.Drawing.Point(184, 169);
             this.lblAppMode.Name = "lblAppMode";
             this.lblAppMode.Size = new System.Drawing.Size(66, 15);
             this.lblAppMode.TabIndex = 1;
@@ -67,7 +67,7 @@
             this.lblAAccentColor.AutoSize = true;
             this.lblAAccentColor.Font = new System.Drawing.Font("Segoe UI Semibold", 9F);
             this.lblAAccentColor.ForeColor = System.Drawing.Color.Black;
-            this.lblAAccentColor.Location = new System.Drawing.Point(242, 235);
+            this.lblAAccentColor.Location = new System.Drawing.Point(184, 188);
             this.lblAAccentColor.Name = "lblAAccentColor";
             this.lblAAccentColor.Size = new System.Drawing.Size(78, 15);
             this.lblAAccentColor.TabIndex = 2;
@@ -79,7 +79,7 @@
             this.lblAAccentColorVal.AutoSize = true;
             this.lblAAccentColorVal.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.lblAAccentColorVal.ForeColor = System.Drawing.Color.Black;
-            this.lblAAccentColorVal.Location = new System.Drawing.Point(337, 235);
+            this.lblAAccentColorVal.Location = new System.Drawing.Point(279, 188);
             this.lblAAccentColorVal.Name = "lblAAccentColorVal";
             this.lblAAccentColorVal.Size = new System.Drawing.Size(43, 15);
             this.lblAAccentColorVal.TabIndex = 5;
@@ -91,7 +91,7 @@
             this.lblAppModeVal.AutoSize = true;
             this.lblAppModeVal.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.lblAppModeVal.ForeColor = System.Drawing.Color.Black;
-            this.lblAppModeVal.Location = new System.Drawing.Point(337, 216);
+            this.lblAppModeVal.Location = new System.Drawing.Point(279, 169);
             this.lblAppModeVal.Name = "lblAppModeVal";
             this.lblAppModeVal.Size = new System.Drawing.Size(43, 15);
             this.lblAppModeVal.TabIndex = 4;
@@ -103,7 +103,7 @@
             this.lblWindowsModeVal.AutoSize = true;
             this.lblWindowsModeVal.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.lblWindowsModeVal.ForeColor = System.Drawing.Color.Black;
-            this.lblWindowsModeVal.Location = new System.Drawing.Point(337, 197);
+            this.lblWindowsModeVal.Location = new System.Drawing.Point(279, 150);
             this.lblWindowsModeVal.Name = "lblWindowsModeVal";
             this.lblWindowsModeVal.Size = new System.Drawing.Size(43, 15);
             this.lblWindowsModeVal.TabIndex = 3;
@@ -115,7 +115,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI Semilight", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(238, 151);
+            this.label1.Location = new System.Drawing.Point(180, 104);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(265, 32);
             this.label1.TabIndex = 6;
@@ -124,7 +124,7 @@
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(732, 435);
+            this.ClientSize = new System.Drawing.Size(617, 335);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lblAAccentColorVal);
             this.Controls.Add(this.lblAppModeVal);

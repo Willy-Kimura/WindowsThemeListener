@@ -49,12 +49,12 @@ namespace WK.Libraries.WTL
         /// </summary>
         static ThemeListener()
         {
-            AppsTheme = GetAppsTheme();
-            WindowsTheme = GetWindowsTheme();
+            AppMode = GetAppMode();
+            WindowsMode = GetWindowsMode();
             AccentColor = GetAccentColor();
 
-            _nwAppsTheme = GetAppsTheme();
-            _nwWinTheme = GetWindowsTheme();
+            _nwAppsThemeMode = GetAppMode();
+            _nwWinThemeMode = GetWindowsMode();
             _nwAccentColor = GetAccentColor();
 
             TransparencyEnabled = GetTransparency();
@@ -73,10 +73,10 @@ namespace WK.Libraries.WTL
 
         #region Fields
 
-        private static Themes _winTheme;
-        private static Themes _appsTheme;
-        private static Themes _nwWinTheme;
-        private static Themes _nwAppsTheme;
+        private static ThemeModes _winThemeMode;
+        private static ThemeModes _appsThemeMode;
+        private static ThemeModes _nwWinThemeMode;
+        private static ThemeModes _nwAppsThemeMode;
         private static bool _transparencyEnabled;
 
         private static Color _accentColor;
@@ -99,7 +99,7 @@ namespace WK.Libraries.WTL
         /// <summary>
         /// Provides the default Windows Themes.
         /// </summary>
-        public enum Themes
+        public enum ThemeModes
         {
             /// <summary>
             /// Windows Dark theme.
@@ -128,30 +128,30 @@ namespace WK.Libraries.WTL
         public static int PollingInterval { get; set; } = 10000;
 
         /// <summary>
-        /// Gets the currently applied applications theme.
+        /// Gets the currently applied applications theme mode.
+        /// </summary>
+        public static ThemeModes AppMode
+        {
+            get => GetAppMode();
+            private set => _appsThemeMode = value;
+        }
+
+        /// <summary>
+        /// Gets the currently applied system-wide Windows theme mode.
+        /// </summary>
+        public static ThemeModes WindowsMode
+        {
+            get => GetWindowsMode();
+            private set => _winThemeMode = value;
+        }
+
+        /// <summary>
+        /// Gets the currently applied system accent color.
         /// </summary>
         public static Color AccentColor
         {
             get => GetAccentColor();
             private set => _accentColor = value;
-        }
-
-        /// <summary>
-        /// Gets the currently applied applications theme.
-        /// </summary>
-        public static Themes AppsTheme
-        {
-            get => GetAppsTheme();
-            private set => _appsTheme = value;
-        }
-
-        /// <summary>
-        /// Gets the currently applied system-wide Windows theme.
-        /// </summary>
-        public static Themes WindowsTheme
-        {
-            get => GetWindowsTheme();
-            private set => _winTheme = value;
         }
 
         /// <summary>
@@ -170,18 +170,48 @@ namespace WK.Libraries.WTL
         #region Private
 
         /// <summary>
-        /// Gets the currently applied theme type.
+        /// Parses a Windows theme mode value.
         /// </summary>
-        private static Themes GetTheme(int value)
+        private static ThemeModes GetTheme(int value)
         {
             if (value == 1)
-                return Themes.Light;
+                return ThemeModes.Light;
             else
-                return Themes.Dark;
+                return ThemeModes.Dark;
         }
 
         /// <summary>
-        /// Gets the currently applied system accent color.
+        /// Gets the current apps theme mode.
+        /// </summary>
+        private static ThemeModes GetAppMode()
+        {
+            bool lightMode = Convert.ToBoolean(Registry.GetValue(_regKey, _appsLightThemeKey, 0));
+
+            if (lightMode)
+                _appsThemeMode = ThemeModes.Light;
+            else
+                _appsThemeMode = ThemeModes.Dark;
+
+            return _appsThemeMode;
+        }
+
+        /// <summary>
+        /// Gets the current Windows theme mode.
+        /// </summary>
+        private static ThemeModes GetWindowsMode()
+        {
+            bool lightMode = Convert.ToBoolean(Registry.GetValue(_regKey, _sysLightThemeKey, 0));
+
+            if (lightMode)
+                _winThemeMode = ThemeModes.Light;
+            else
+                _winThemeMode = ThemeModes.Dark;
+
+            return _winThemeMode;
+        }
+
+        /// <summary>
+        /// Gets the currently applied Windows accent color.
         /// </summary>
         private static Color GetAccentColor()
         {
@@ -192,37 +222,7 @@ namespace WK.Libraries.WTL
         }
 
         /// <summary>
-        /// Gets the currently applied applications theme.
-        /// </summary>
-        private static Themes GetAppsTheme()
-        {
-            bool lightMode = Convert.ToBoolean(Registry.GetValue(_regKey, _appsLightThemeKey, 0));
-
-            if (lightMode)
-                _appsTheme = Themes.Light;
-            else
-                _appsTheme = Themes.Dark;
-
-            return _appsTheme;
-        }
-
-        /// <summary>
-        /// Gets the currently applied system-wide Windows theme.
-        /// </summary>
-        private static Themes GetWindowsTheme()
-        {
-            bool lightMode = Convert.ToBoolean(Registry.GetValue(_regKey, _sysLightThemeKey, 0));
-
-            if (lightMode)
-                _winTheme = Themes.Light;
-            else
-                _winTheme = Themes.Dark;
-
-            return _winTheme;
-        }
-
-        /// <summary>
-        /// Gets a value indicating whether transparency is enabled system-wide.
+        /// Gets a value indicating whether window transparency is enabled system-wide.
         /// </summary>
         private static bool GetTransparency()
         {
@@ -242,7 +242,8 @@ namespace WK.Libraries.WTL
         #region Event Handlers
 
         /// <summary>
-        /// Occurs when either the <see cref="AppsTheme"/> or the <see cref="WindowsTheme"/> has been changed.
+        /// Occurs whenever the <see cref="AppMode"/>, <see cref="WindowsMode"/> or 
+        /// <see cref="AccentColor"/> have been changed.
         /// </summary>
         public static event EventHandler<ThemeChangedEventArgs> ThemeChanged;
 
@@ -267,14 +268,14 @@ namespace WK.Libraries.WTL
             /// <param name="newSysTheme">The newly set System theme.</param>
             /// <param name="newAccentColor">The newly set accent color.</param>
             public ThemeChangedEventArgs(
-                Themes oldAppsTheme, Themes oldSysTheme, Color oldAccentColor,
-                Themes newAppsTheme, Themes newSysTheme, Color newAccentColor)
+                ThemeModes oldAppsTheme, ThemeModes oldSysTheme, Color oldAccentColor,
+                ThemeModes newAppsTheme, ThemeModes newSysTheme, Color newAccentColor)
             {
-                OldAppsTheme = oldAppsTheme;
-                OldWindowsTheme = oldSysTheme;
+                OldAppMode = oldAppsTheme;
+                OldWindowsMode = oldSysTheme;
                 OldAccentColor = oldAccentColor;
-                NewAppsTheme = newAppsTheme;
-                NewWindowsTheme = newSysTheme;
+                NewAppMode = newAppsTheme;
+                NewWindowsMode = newSysTheme;
                 NewAccentColor = newAccentColor;
             }
 
@@ -283,32 +284,32 @@ namespace WK.Libraries.WTL
             #region Properties
 
             /// <summary>
-            /// Gets the previously applied applications theme.
+            /// Gets the previously applied apps theme mode.
             /// </summary>
-            public Themes OldAppsTheme { get; private set; }
+            public ThemeModes OldAppMode { get; private set; }
 
             /// <summary>
-            /// Gets the currently applied applications theme.
+            /// Gets the newly applied apps theme mode.
             /// </summary>
-            public Themes NewAppsTheme { get; private set; }
+            public ThemeModes NewAppMode { get; private set; }
 
             /// <summary>
-            /// Gets the previously applied Windows theme.
+            /// Gets the previously applied Windows theme mode.
             /// </summary>
-            public Themes OldWindowsTheme { get; private set; }
+            public ThemeModes OldWindowsMode { get; private set; }
 
             /// <summary>
-            /// Gets the currently applied system-wide Windows theme.
+            /// Gets the newly applied Windows theme mode.
             /// </summary>
-            public Themes NewWindowsTheme { get; private set; }
+            public ThemeModes NewWindowsMode { get; private set; }
 
             /// <summary>
-            /// Gets the previously applied accent color.
+            /// Gets the previously applied Windows accent color.
             /// </summary>
             public Color OldAccentColor { get; private set; }
 
             /// <summary>
-            /// Gets the currently applied accent color.
+            /// Gets the newly applied Windows accent color.
             /// </summary>
             public Color NewAccentColor { get; private set; }
 
@@ -335,26 +336,28 @@ namespace WK.Libraries.WTL
                     _invoker.Invoke((Action)delegate
                     {
                         if (args.ValueName == _sysLightThemeKey)
-                            _nwWinTheme = GetTheme((int)args.Value);
+                            _nwWinThemeMode = GetTheme((int)args.Value);
 
                         if (args.ValueName == _appsLightThemeKey)
-                            _nwAppsTheme = GetTheme((int)args.Value);
+                            _nwAppsThemeMode = GetTheme((int)args.Value);
 
                         if (args.ValueName == _accentColorKey)
                         {
                             _nwAccentColor = ColorTranslator.FromWin32(Convert.ToInt32(args.Value));
                         }
 
-                        if (_winTheme != _nwWinTheme || _appsTheme != _nwAppsTheme || _accentColor != _nwAccentColor)
+                        if (_winThemeMode != _nwWinThemeMode || 
+                            _appsThemeMode != _nwAppsThemeMode || 
+                            _accentColor != _nwAccentColor)
                         {
                             ThemeChanged?.Invoke(_watcher,
                                 new ThemeChangedEventArgs(
-                                    _appsTheme, _winTheme,
-                                    _accentColor, _nwAppsTheme,
-                                    _nwWinTheme, _nwAccentColor));
+                                    _appsThemeMode, _winThemeMode,
+                                    _accentColor, _nwAppsThemeMode,
+                                    _nwWinThemeMode, _nwAccentColor));
 
-                            _winTheme = _nwWinTheme;
-                            _appsTheme = _nwAppsTheme;
+                            _winThemeMode = _nwWinThemeMode;
+                            _appsThemeMode = _nwAppsThemeMode;
                             _accentColor = _nwAccentColor;
                         }
                     });
