@@ -57,7 +57,7 @@ namespace WK.Libraries.WTL.Helpers
         /// <summary>
         /// The timer to trigger Registry polls.
         /// </summary>
-        private readonly Timer timer;
+        internal Timer timer;
 
         #endregion
 
@@ -71,6 +71,14 @@ namespace WK.Libraries.WTL.Helpers
         #endregion
 
         #region Methods
+
+        /// <summary>
+        /// Restarts the Registry Monitor.
+        /// </summary>
+        public void Restart()
+        {
+            timer = new Timer(CheckRegistry, null, Period, Timeout.Infinite);
+        }
 
         /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.

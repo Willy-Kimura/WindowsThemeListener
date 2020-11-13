@@ -37,14 +37,13 @@ namespace Library.Demo
         }
 
         /// <summary>
-        /// Transitions the form's background color to another.
+        /// Transitions the visual elements' colors to any defined color.
         /// </summary>
-        /// <param name="color"></param>
-        public void TransitionColors(Color backColor, Color foreColor)
+        public void TransitionColors(Color backColor, Color foreColor, int transitionTime = 200)
         {
-            Transition.run(this, "BackColor", backColor, new TransitionType_EaseInEaseOut(330));
-            Transition labelTransitions = new Transition(new TransitionType_EaseInEaseOut(330));
-
+            Transition.run(this, "BackColor", backColor, new TransitionType_EaseInEaseOut(transitionTime));
+            Transition labelTransitions = new Transition(new TransitionType_EaseInEaseOut(transitionTime));
+            
             labelTransitions.add(lblTitle, "ForeColor", foreColor);
             labelTransitions.add(lblAccentColor, "ForeColor", foreColor);
             labelTransitions.add(lblAccentColorVal, "ForeColor", foreColor);
@@ -54,6 +53,7 @@ namespace Library.Demo
             labelTransitions.add(lblWindowsModeVal, "ForeColor", foreColor);
             labelTransitions.add(lblAccentForeColor, "ForeColor", foreColor);
             labelTransitions.add(lblAccentForeColorVal, "ForeColor", foreColor);
+            labelTransitions.add(lblEnabled, "ForeColor", foreColor);
 
             labelTransitions.run();
         }
@@ -70,6 +70,21 @@ namespace Library.Demo
             lblAppModeVal.Text = e.NewAppMode.ToString();
             lblAccentColorVal.Text = e.NewAccentColor.ToString();
             lblAccentForeColorVal.Text = e.NewAccentForeColor.ToString();
+        }
+
+        private void themeSwitch_CheckedChanged(object sender, EventArgs e)
+        {
+            ThemeListener.Enabled = tsEnable.Checked;
+
+            if (tsEnable.Checked)
+                lblEnabled.Text = "Enabled";
+            else
+                lblEnabled.Text = "Disabled";
+        }
+
+        private void lblEnabled_Click(object sender, EventArgs e)
+        {
+            tsEnable.Checked = !tsEnable.Checked;
         }
 
         #endregion

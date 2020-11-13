@@ -29,6 +29,7 @@
 using System;
 using System.Drawing;
 using Microsoft.Win32;
+using System.Threading;
 using System.Diagnostics;
 using System.Windows.Forms;
 using WK.Libraries.WTL.Helpers;
@@ -73,11 +74,13 @@ namespace WK.Libraries.WTL
 
         #region Fields
 
+        private static bool _enabled = true;
+        private static bool _transparencyEnabled;
+
         private static ThemeModes _winThemeMode;
         private static ThemeModes _appsThemeMode;
         private static ThemeModes _nwWinThemeMode;
         private static ThemeModes _nwAppsThemeMode;
-        private static bool _transparencyEnabled;
 
         private static Color _accentColor;
         private static Color _nwAccentColor;
@@ -119,7 +122,19 @@ namespace WK.Libraries.WTL
         /// <summary>
         /// Gets or sets a value indicating whether <see cref="ThemeListener"/> is enabled.
         /// </summary>
-        public static bool Enabled { get; set; } = true;
+        public static bool Enabled
+        {
+            get => _enabled;
+            set
+            {
+                _enabled = value;
+
+                if (value == true)
+                    _watcher.Restart();
+                else
+                    _watcher.Dispose();
+            }
+        }
 
         /// <summary>
         /// Gets or sets the period in millseconds between Registry polls. 
@@ -386,8 +401,8 @@ namespace WK.Libraries.WTL
                         if (args.ValueName == _accentColorKey)
                             _nwAccentColor = ColorTranslator.FromWin32(Convert.ToInt32(args.Value));
 
-                        if (_winThemeMode != _nwWinThemeMode || 
-                            _appsThemeMode != _nwAppsThemeMode || 
+                        if (_winThemeMode != _nwWinThemeMode ||
+                            _appsThemeMode != _nwAppsThemeMode ||
                             _accentColor != _nwAccentColor)
                         {
                             ThemeChanged?.Invoke(_watcher,
