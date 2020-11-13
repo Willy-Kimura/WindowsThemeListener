@@ -1,7 +1,7 @@
-# Windows Theme Listener
+# WindowsThemeListener
 [![nuget-downloads](https://img.shields.io/nuget/dt/BootMeUp?label=Downloads)](https://www.nuget.org/packages/BootMeUp/) [![wk-donate](https://img.shields.io/badge/BuyMeACoffee-Donate-orange.svg)](https://www.buymeacoffee.com/willykimura)
 
-**WindowsThemeListener** (WTL) is a .NET helper library that enables listening to Windows 10 theme and color settings. With **WTL**, your .NET applications can now automatically employ the current theme mode and accent colors applied in any modern Windows OS.
+**WindowsThemeListener (WTL)** is a .NET helper library that enables listening to Windows 10 theme and color settings. With **WTL**, your .NET applications can now automatically employ the current theme mode and accent colors applied in any modern Windows OS.
 
 ![wtl-logo](Assets/Logo/wtl-logo-variant-midres.png)
 
