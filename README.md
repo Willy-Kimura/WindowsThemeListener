@@ -3,7 +3,7 @@
 
 **WindowsThemeListener (WTL)** is a .NET helper library that enables listening to Windows 10 theme and color settings. With **WTL**, your .NET applications can now automatically employ the current theme mode and accent colors applied in any modern Windows OS.
 
-![wtl-logo](Assets/Logo/wtl-logo-variant-midres.png)
+![wtl-logo](Assets/Logo/wtl-logo-variant-lowres.png)
 
 # Installation 
 
