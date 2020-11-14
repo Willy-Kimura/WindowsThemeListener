@@ -37,8 +37,7 @@ using System.Collections.Generic;
 namespace WK.Libraries.WTL
 {
     /// <summary>
-    /// A static class that provides helper properties and 
-    /// methods for obtaining Windows 10 Theming settings.
+    /// A library that listens to all modern Windows theming and color settings.
     /// </summary>
     [DebuggerStepThrough]
     public static class ThemeListener

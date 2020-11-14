@@ -7,16 +7,29 @@
     <UseWindowsForms>true</UseWindowsForms>
     <AssemblyTitle>System.Personalization</AssemblyTitle>
     <Company>Willy Kimura</Company>
-    <Product>System.Personalization</Product>
-    <Description>Provides access to Windows personalization features.</Description>
+    <Product>WindowsThemeListener</Product>
+    <Description>WindowsThemeListener (WTL) is a library that listens to all modern Windows theming and color settings, e.g. Windows 10. With this nifty library, your .NET applications can now easily employ the current Windows theme mode and accent colors as applied across all modern Windows Operating Systems.</Description>
     <Copyright>Copyright © 2020, Willy Kimura.</Copyright>
     <OutputPath>bin\$(Configuration)\</OutputPath>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageIcon>wtl-icon.png</PackageIcon>
+    <RepositoryUrl>https://github.com/Willy-Kimura/WindowsThemeListener.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageProjectUrl>https://github.com/Willy-Kimura/WindowsThemeListener</PackageProjectUrl>
+    <PackageTags>theme themes theming theme-listener windows windows-theme windows-theme-listener wtl</PackageTags>
+    <PackageReleaseNotes>Initial release.</PackageReleaseNotes>
+    <PackageId>WindowsThemeListener</PackageId>
+    <Authors>WillyKimura</Authors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>full</DebugType>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net40|AnyCPU'">
+    <DocumentationFile>bin\Debug\System.Personalization.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Compile Update="Controls\ToggleSwitch.cs" />
@@ -32,5 +45,11 @@
     <EmbeddedResource Update="Controls\ToggleSwitch.resx">
       <DependentUpon>ToggleSwitch.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Assets\Icons\wtl-icon.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 </Project>
