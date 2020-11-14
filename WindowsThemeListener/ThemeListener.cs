@@ -32,6 +32,7 @@ using Microsoft.Win32;
 using System.Diagnostics;
 using System.Windows.Forms;
 using WK.Libraries.WTL.Helpers;
+using System.Collections.Generic;
 
 namespace WK.Libraries.WTL
 {
@@ -52,17 +53,17 @@ namespace WK.Libraries.WTL
             AppMode = GetAppMode();
             WindowsMode = GetWindowsMode();
             AccentColor = GetAccentColor();
+            TransparencyEnabled = GetTransparency();
 
-            _nwAppsThemeMode = GetAppMode();
+            _nwAppThemeMode = GetAppMode();
             _nwWinThemeMode = GetWindowsMode();
             _nwAccentColor = GetAccentColor();
-
-            TransparencyEnabled = GetTransparency();
+            _nwTransparencyEnabled = GetTransparency();
 
             _watcher = new RegistryMonitor(
                 new Tuple<string, string>(_regKey, _transparencyKey),
-                new Tuple<string, string>(_regKey, _appsLightThemeKey),
-                new Tuple<string, string>(_regKey, _sysLightThemeKey),
+                new Tuple<string, string>(_regKey, _appLightThemeKey),
+                new Tuple<string, string>(_regKey, _winLightThemeKey),
                 new Tuple<string, string>(_regKey2, _accentColorKey));
 
             _invoker.CreateControl();
@@ -75,23 +76,26 @@ namespace WK.Libraries.WTL
 
         private static bool _enabled = true;
         private static bool _transparencyEnabled;
+        private static bool _nwTransparencyEnabled;
 
         private static ThemeModes _winThemeMode;
-        private static ThemeModes _appsThemeMode;
+        private static ThemeModes _appThemeMode;
         private static ThemeModes _nwWinThemeMode;
-        private static ThemeModes _nwAppsThemeMode;
+        private static ThemeModes _nwAppThemeMode;
 
         private static Color _accentColor;
         private static Color _nwAccentColor;
+        private static Color _accentForeColor;
 
         private static string _accentColorKey = "AccentColor";
         private static string _transparencyKey = "EnableTransparency";
-        private static string _appsLightThemeKey = "AppsUseLightTheme";
-        private static string _sysLightThemeKey = "SystemUsesLightTheme";
+        private static string _appLightThemeKey = "AppsUseLightTheme";
+        private static string _winLightThemeKey = "SystemUsesLightTheme";
         private static string _regKey = @"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize";
         private static string _regKey2 = @"HKEY_CURRENT_USER\Software\Microsoft\Windows\DWM";
 
         private static RegistryMonitor _watcher;
+        private static List<ThemeOptions> _options;
         private static UserControl _invoker = new UserControl();
 
         #endregion
@@ -112,6 +116,37 @@ namespace WK.Libraries.WTL
             /// Windows Light theme.
             /// </summary>
             Light
+        }
+
+        /// <summary>
+        /// Provides the list of supported personalization options.
+        /// </summary>
+        public enum ThemeOptions
+        {
+            /// <summary>
+            /// The <see cref="WindowsMode"/> option.
+            /// </summary>
+            WindowsMode,
+
+            /// <summary>
+            /// The <see cref="AppMode"/> option.
+            /// </summary>
+            AppMode,
+
+            /// <summary>
+            /// The <see cref="AccentColor"/> option.
+            /// </summary>
+            AccentColor,
+
+            /// <summary>
+            /// The <see cref="AccentForeColor"/> option.
+            /// </summary>
+            AccentForeColor,
+
+            /// <summary>
+            /// The <see cref="TransparencyEnabled"/> option.
+            /// </summary>
+            Transparency
         }
 
         #endregion
@@ -160,7 +195,7 @@ namespace WK.Libraries.WTL
         public static ThemeModes AppMode
         {
             get => GetAppMode();
-            private set => _appsThemeMode = value;
+            private set => _appThemeMode = value;
         }
 
         /// <summary>
@@ -179,10 +214,11 @@ namespace WK.Libraries.WTL
         public static Color AccentForeColor
         {
             get => GenerateAccentForeColor(AccentColor);
+            private set => _accentForeColor = value;
         }
 
         /// <summary>
-        /// Gets a value indicating whether transparency is enabled system-wide.
+        /// Gets a value indicating whether window transparency is enabled.
         /// </summary>
         public static bool TransparencyEnabled
         {
@@ -216,29 +252,18 @@ namespace WK.Libraries.WTL
         #region Private
 
         /// <summary>
-        /// Parses a Windows theme mode value.
-        /// </summary>
-        private static ThemeModes GetTheme(int value)
-        {
-            if (value == 1)
-                return ThemeModes.Light;
-            else
-                return ThemeModes.Dark;
-        }
-
-        /// <summary>
         /// Gets the current apps theme mode.
         /// </summary>
         private static ThemeModes GetAppMode()
         {
-            bool lightMode = Convert.ToBoolean(Registry.GetValue(_regKey, _appsLightThemeKey, 0));
+            bool lightMode = Convert.ToBoolean(Registry.GetValue(_regKey, _appLightThemeKey, 0));
 
             if (lightMode)
-                _appsThemeMode = ThemeModes.Light;
+                _appThemeMode = ThemeModes.Light;
             else
-                _appsThemeMode = ThemeModes.Dark;
+                _appThemeMode = ThemeModes.Dark;
 
-            return _appsThemeMode;
+            return _appThemeMode;
         }
 
         /// <summary>
@@ -246,7 +271,7 @@ namespace WK.Libraries.WTL
         /// </summary>
         private static ThemeModes GetWindowsMode()
         {
-            bool lightMode = Convert.ToBoolean(Registry.GetValue(_regKey, _sysLightThemeKey, 0));
+            bool lightMode = Convert.ToBoolean(Registry.GetValue(_regKey, _winLightThemeKey, 0));
 
             if (lightMode)
                 _winThemeMode = ThemeModes.Light;
@@ -254,6 +279,17 @@ namespace WK.Libraries.WTL
                 _winThemeMode = ThemeModes.Dark;
 
             return _winThemeMode;
+        }
+
+        /// <summary>
+        /// Parses a Windows theme mode value.
+        /// </summary>
+        private static ThemeModes GetThemeMode(int value)
+        {
+            if (value == 1)
+                return ThemeModes.Light;
+            else
+                return ThemeModes.Dark;
         }
 
         /// <summary>
@@ -268,13 +304,22 @@ namespace WK.Libraries.WTL
         }
 
         /// <summary>
-        /// Gets a value indicating whether window transparency is enabled system-wide.
+        /// Gets a value indicating whether window transparency is enabled.
         /// </summary>
         private static bool GetTransparency()
         {
             _transparencyEnabled = Convert.ToBoolean(Registry.GetValue(_regKey, _transparencyKey, 0));
 
             return _transparencyEnabled;
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether window transparency 
+        /// is enabled without modifying its property variable.
+        /// </summary>
+        private static bool GetTransparencyRaw()
+        {
+            return Convert.ToBoolean(Registry.GetValue(_regKey, _transparencyKey, 0));
         }
 
         #endregion
@@ -288,41 +333,37 @@ namespace WK.Libraries.WTL
         #region Event Handlers
 
         /// <summary>
-        /// Occurs whenever the <see cref="AppMode"/>, <see cref="WindowsMode"/> or 
-        /// <see cref="AccentColor"/> have been changed.
+        /// Occurs whenever any of the available theme options have been changed.
         /// </summary>
-        public static event EventHandler<ThemeChangedEventArgs> ThemeChanged;
+        public static event EventHandler<ThemeOptionsChangedEventArgs> ThemeOptionsChanged;
 
         #endregion
 
         #region Event Arguments
 
         /// <summary>
-        /// Provides data for the <see cref="ThemeChanged"/> event.
+        /// Provides data for the <see cref="ThemeOptionsChanged"/> event.
         /// </summary>
-        public class ThemeChangedEventArgs : EventArgs
+        public class ThemeOptionsChangedEventArgs : EventArgs
         {
             #region Constructor
 
             /// <summary>
             /// Initializes a new instance of the <see cref="RegistryChangeEventArgs"/> class.
             /// </summary>
-            /// <param name="oldAppsMode">The previously set Apps theme.</param>
-            /// <param name="oldWinMode">The previously set Windows theme.</param>
-            /// <param name="oldAccentColor">The previously set accent color.</param>
-            /// <param name="newAppsMode">The newly set Apps theme.</param>
+            /// <param name="newAppMode">The newly set Apps theme.</param>
             /// <param name="newWinMode">The newly set Windows theme.</param>
             /// <param name="newAccentColor">The newly set accent color.</param>
-            public ThemeChangedEventArgs(
-                ThemeModes oldAppsMode, ThemeModes oldWinMode, Color oldAccentColor,
-                ThemeModes newAppsMode, ThemeModes newWinMode, Color newAccentColor)
+            /// <param name="newTransparencyEnabled">The newly sey transparency option.</param>
+            /// <param name="modOptions">The list of options modified</param>
+            public ThemeOptionsChangedEventArgs(ThemeModes newAppMode, ThemeModes newWinMode, 
+                Color newAccentColor, bool newTransparencyEnabled, List<ThemeOptions> modOptions)
             {
-                OldAppMode = oldAppsMode;
-                OldWindowsMode = oldWinMode;
-                OldAccentColor = oldAccentColor;
-                NewAppMode = newAppsMode;
-                NewWindowsMode = newWinMode;
-                NewAccentColor = newAccentColor;
+                AppMode = newAppMode;
+                WindowsMode = newWinMode;
+                AccentColor = newAccentColor;
+                TransparencyEnabled = newTransparencyEnabled;
+                OptionsChanged = modOptions;
             }
 
             #endregion
@@ -330,48 +371,38 @@ namespace WK.Libraries.WTL
             #region Properties
 
             /// <summary>
-            /// Gets the previously applied apps theme mode.
+            /// Gets a value indicating whether window transparency is enabled.
             /// </summary>
-            public ThemeModes OldAppMode { get; private set; }
+            public bool TransparencyEnabled { get; private set; }
 
             /// <summary>
             /// Gets the newly applied apps theme mode.
             /// </summary>
-            public ThemeModes NewAppMode { get; private set; }
-
-            /// <summary>
-            /// Gets the previously applied Windows theme mode.
-            /// </summary>
-            public ThemeModes OldWindowsMode { get; private set; }
+            public ThemeModes AppMode { get; private set; }
 
             /// <summary>
             /// Gets the newly applied Windows theme mode.
             /// </summary>
-            public ThemeModes NewWindowsMode { get; private set; }
-
-            /// <summary>
-            /// Gets the previously applied Windows accent color.
-            /// </summary>
-            public Color OldAccentColor { get; private set; }
+            public ThemeModes WindowsMode { get; private set; }
 
             /// <summary>
             /// Gets the newly applied Windows accent color.
             /// </summary>
-            public Color NewAccentColor { get; private set; }
-
-            /// <summary>
-            /// Gets the previously generated accent fore color.
-            /// </summary>
-            public Color OldAccentForeColor { get; private set; }
+            public Color AccentColor { get; private set; }
 
             /// <summary>
             /// Gets a newly generated accent fore color 
             /// based on the applied system accent color.
             /// </summary>
-            public Color NewAccentForeColor
+            public Color AccentForeColor
             {
-                get => GenerateAccentForeColor(NewAccentColor);
+                get => GenerateAccentForeColor(AccentColor);
             }
+
+            /// <summary>
+            /// Gets the list of personalization options modified.
+            /// </summary>
+            public List<ThemeOptions> OptionsChanged { get; private set; } = new List<ThemeOptions>();
 
             #endregion
         }
@@ -395,28 +426,51 @@ namespace WK.Libraries.WTL
                 {
                     _invoker.Invoke((Action)delegate
                     {
-                        if (args.ValueName == _sysLightThemeKey)
-                            _nwWinThemeMode = GetTheme((int)args.Value);
+                        if (_options != null)
+                            _options.Clear();
 
-                        if (args.ValueName == _appsLightThemeKey)
-                            _nwAppsThemeMode = GetTheme((int)args.Value);
+                        _options = new List<ThemeOptions>();
+
+                        if (args.ValueName == _winLightThemeKey)
+                        {
+                            _nwWinThemeMode = GetThemeMode((int)args.Value);
+                            _options.Add(ThemeOptions.WindowsMode);
+                        }
+
+                        if (args.ValueName == _appLightThemeKey)
+                        {
+                            _nwAppThemeMode = GetThemeMode((int)args.Value);
+                            _options.Add(ThemeOptions.AppMode);
+                        }
 
                         if (args.ValueName == _accentColorKey)
+                        {
                             _nwAccentColor = ColorTranslator.FromWin32(Convert.ToInt32(args.Value));
+                            _options.Add(ThemeOptions.AccentColor);
+                            _options.Add(ThemeOptions.AccentForeColor);
+                        }
+
+                        if (args.ValueName == _transparencyKey)
+                        {
+                            _nwTransparencyEnabled = GetTransparencyRaw();
+                            _options.Add(ThemeOptions.Transparency);
+                        }
 
                         if (_winThemeMode != _nwWinThemeMode ||
-                            _appsThemeMode != _nwAppsThemeMode ||
-                            _accentColor != _nwAccentColor)
+                            _appThemeMode != _nwAppThemeMode ||
+                            _accentColor != _nwAccentColor ||
+                            _transparencyEnabled != _nwTransparencyEnabled)
                         {
-                            ThemeChanged?.Invoke(_watcher,
-                                new ThemeChangedEventArgs(
-                                    _appsThemeMode, _winThemeMode,
-                                    _accentColor, _nwAppsThemeMode,
-                                    _nwWinThemeMode, _nwAccentColor));
+                            ThemeOptionsChanged?.Invoke(_watcher,
+                                new ThemeOptionsChangedEventArgs(
+                                    _nwAppThemeMode, _nwWinThemeMode, 
+                                    _nwAccentColor, _nwTransparencyEnabled, _options));
 
                             _winThemeMode = _nwWinThemeMode;
-                            _appsThemeMode = _nwAppsThemeMode;
+                            _appThemeMode = _nwAppThemeMode;
                             _accentColor = _nwAccentColor;
+                            _accentForeColor = GenerateAccentForeColor(_nwAccentColor);
+                            _transparencyEnabled = _nwTransparencyEnabled;
                         }
                     });
                 }

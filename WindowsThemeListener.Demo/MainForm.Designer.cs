@@ -42,6 +42,8 @@
             this.lblEnabled = new System.Windows.Forms.Label();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.lblTransparencyVal = new System.Windows.Forms.Label();
+            this.lblTransparency = new System.Windows.Forms.Label();
             this.tsEnable = new WK.Libraries.WTL.Controls.ToggleSwitch();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -180,6 +182,30 @@
             this.pictureBox1.TabIndex = 11;
             this.pictureBox1.TabStop = false;
             // 
+            // lblTransparencyVal
+            // 
+            this.lblTransparencyVal.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lblTransparencyVal.AutoSize = true;
+            this.lblTransparencyVal.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.lblTransparencyVal.ForeColor = System.Drawing.Color.Black;
+            this.lblTransparencyVal.Location = new System.Drawing.Point(268, 253);
+            this.lblTransparencyVal.Name = "lblTransparencyVal";
+            this.lblTransparencyVal.Size = new System.Drawing.Size(43, 15);
+            this.lblTransparencyVal.TabIndex = 13;
+            this.lblTransparencyVal.Text = "{value}";
+            // 
+            // lblTransparency
+            // 
+            this.lblTransparency.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lblTransparency.AutoSize = true;
+            this.lblTransparency.Font = new System.Drawing.Font("Segoe UI Semibold", 9F);
+            this.lblTransparency.ForeColor = System.Drawing.Color.Black;
+            this.lblTransparency.Location = new System.Drawing.Point(165, 253);
+            this.lblTransparency.Name = "lblTransparency";
+            this.lblTransparency.Size = new System.Drawing.Size(80, 15);
+            this.lblTransparency.TabIndex = 12;
+            this.lblTransparency.Text = "Transparency:";
+            // 
             // tsEnable
             // 
             this.tsEnable.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -207,6 +233,8 @@
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(568, 381);
+            this.Controls.Add(this.lblTransparencyVal);
+            this.Controls.Add(this.lblTransparency);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.lblEnabled);
             this.Controls.Add(this.tsEnable);
@@ -247,6 +275,8 @@
         private System.Windows.Forms.Label lblEnabled;
         private System.Windows.Forms.ToolTip toolTip;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label lblTransparencyVal;
+        private System.Windows.Forms.Label lblTransparency;
     }
 }
 
