@@ -33,7 +33,7 @@ To begin with, once you've installed the library, ensure you import the namespac
 using WK.Libraries.WTL;
 ```
 
-Windows Theme Listener is a static library so no there's need for instantiation:
+Windows Theme Listener is a static library so no need for instantiation:
 
 ```c#
 ThemeListener.Enabled = true;
