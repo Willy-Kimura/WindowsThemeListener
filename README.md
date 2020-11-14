@@ -3,7 +3,13 @@
 
 **WindowsThemeListener (WTL)** is a library that listens to any modern Windows OS's theming and color settings. With this nifty library, your .NET applications can now automagically employ the current Windows theme mode and accent colors applied across all modern Windows Operating Systems.
 
-![wtl-logo](Assets/Logo/wtl-logo-variant-lowres.png)
+<div align="center">
+
+![wtl-logo](Assets/Icons/Logo/wtl-logo-variant-lowres.png)
+
+![wtl-preview](Assets/Screenshots/wtl-demo.gif)
+
+</div>
 
 # Installation 
 
@@ -12,7 +18,13 @@ To install via the [NuGet Package Manager](https://www.nuget.org/packages/Window
 > `Install-Package WindowsThemeListener`
 
 # Features
-- Supports [.NET Framework 4.5](https://www.microsoft.com/en-us/download/details.aspx?id=17718) and higher.
+- Supports [.NET Framework 4.0](https://www.microsoft.com/en-us/download/details.aspx?id=17718) and higher.
+- Silently monitors Windows personalization settings in the background.
+- Listens to the default Windows Mode and App Mode theming options.
+- Listens to the Windows primary accent color changes.
+- Supports accent forecolor generation based on accent color changes.
+- Supports enabling/disabling theme monitoring at runtime.
+- Super easy API for integrating with .NET applications.
 
 # Usage
 To begin with, once you've installed the library, ensure you import the namespace `WK.Libraries.BootMeUpNS`:
