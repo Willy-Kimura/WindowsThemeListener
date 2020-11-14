@@ -256,14 +256,21 @@ namespace WK.Libraries.WTL
         /// </summary>
         private static ThemeModes GetAppMode()
         {
-            bool lightMode = Convert.ToBoolean(Registry.GetValue(_regKey, _appLightThemeKey, 0));
+            try
+            {
+                bool lightMode = Convert.ToBoolean(Registry.GetValue(_regKey, _appLightThemeKey, 0));
 
-            if (lightMode)
-                _appThemeMode = ThemeModes.Light;
-            else
-                _appThemeMode = ThemeModes.Dark;
+                if (lightMode)
+                    _appThemeMode = ThemeModes.Light;
+                else
+                    _appThemeMode = ThemeModes.Dark;
 
-            return _appThemeMode;
+                return _appThemeMode;
+            }
+            catch (Exception)
+            {
+                return ThemeModes.Light;
+            }
         }
 
         /// <summary>
@@ -271,14 +278,21 @@ namespace WK.Libraries.WTL
         /// </summary>
         private static ThemeModes GetWindowsMode()
         {
-            bool lightMode = Convert.ToBoolean(Registry.GetValue(_regKey, _winLightThemeKey, 0));
+            try
+            {
+                bool lightMode = Convert.ToBoolean(Registry.GetValue(_regKey, _winLightThemeKey, 0));
 
-            if (lightMode)
-                _winThemeMode = ThemeModes.Light;
-            else
-                _winThemeMode = ThemeModes.Dark;
+                if (lightMode)
+                    _winThemeMode = ThemeModes.Light;
+                else
+                    _winThemeMode = ThemeModes.Dark;
 
-            return _winThemeMode;
+                return _winThemeMode;
+            }
+            catch (Exception)
+            {
+                return ThemeModes.Light;
+            }
         }
 
         /// <summary>
@@ -297,10 +311,17 @@ namespace WK.Libraries.WTL
         /// </summary>
         private static Color GetAccentColor()
         {
-            _accentColor = ColorTranslator.FromWin32(
+            try
+            {
+                _accentColor = ColorTranslator.FromWin32(
                 Convert.ToInt32(Registry.GetValue(_regKey2, _accentColorKey, "")));
 
-            return _accentColor;
+                return _accentColor;
+            }
+            catch (Exception)
+            {
+                return Color.White;
+            }
         }
 
         /// <summary>
@@ -308,9 +329,16 @@ namespace WK.Libraries.WTL
         /// </summary>
         private static bool GetTransparency()
         {
-            _transparencyEnabled = Convert.ToBoolean(Registry.GetValue(_regKey, _transparencyKey, 0));
+            try
+            {
+                _transparencyEnabled = Convert.ToBoolean(Registry.GetValue(_regKey, _transparencyKey, 0));
 
-            return _transparencyEnabled;
+                return _transparencyEnabled;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         /// <summary>
@@ -319,7 +347,14 @@ namespace WK.Libraries.WTL
         /// </summary>
         private static bool GetTransparencyRaw()
         {
-            return Convert.ToBoolean(Registry.GetValue(_regKey, _transparencyKey, 0));
+            try
+            {
+                return Convert.ToBoolean(Registry.GetValue(_regKey, _transparencyKey, 0));
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         #endregion
@@ -420,62 +455,66 @@ namespace WK.Libraries.WTL
         /// <param name="args">The <see cref="RegistryMonitor.RegistryChangeEventArgs"/> instance containing the event data.</param>
         private static void RegistryChanged(object sender, RegistryMonitor.RegistryChangeEventArgs args)
         {
-            if (Enabled)
+            try
             {
-                if (_invoker.Created)
+                if (Enabled)
                 {
-                    _invoker.Invoke((Action)delegate
+                    if (_invoker.Created)
                     {
-                        if (_options != null)
-                            _options.Clear();
-
-                        _options = new List<ThemeOptions>();
-
-                        if (args.ValueName == _winLightThemeKey)
+                        _invoker.Invoke((Action)delegate
                         {
-                            _nwWinThemeMode = GetThemeMode((int)args.Value);
-                            _options.Add(ThemeOptions.WindowsMode);
-                        }
+                            if (_options != null)
+                                _options.Clear();
 
-                        if (args.ValueName == _appLightThemeKey)
-                        {
-                            _nwAppThemeMode = GetThemeMode((int)args.Value);
-                            _options.Add(ThemeOptions.AppMode);
-                        }
+                            _options = new List<ThemeOptions>();
 
-                        if (args.ValueName == _accentColorKey)
-                        {
-                            _nwAccentColor = ColorTranslator.FromWin32(Convert.ToInt32(args.Value));
+                            if (args.ValueName == _winLightThemeKey)
+                            {
+                                _nwWinThemeMode = GetThemeMode((int)args.Value);
+                                _options.Add(ThemeOptions.WindowsMode);
+                            }
 
-                            _options.Add(ThemeOptions.AccentColor);
-                            _options.Add(ThemeOptions.AccentForeColor);
-                        }
+                            if (args.ValueName == _appLightThemeKey)
+                            {
+                                _nwAppThemeMode = GetThemeMode((int)args.Value);
+                                _options.Add(ThemeOptions.AppMode);
+                            }
 
-                        if (args.ValueName == _transparencyKey)
-                        {
-                            _nwTransparencyEnabled = GetTransparencyRaw();
-                            _options.Add(ThemeOptions.Transparency);
-                        }
+                            if (args.ValueName == _accentColorKey)
+                            {
+                                _nwAccentColor = ColorTranslator.FromWin32(Convert.ToInt32(args.Value));
 
-                        if (_winThemeMode != _nwWinThemeMode ||
-                            _appThemeMode != _nwAppThemeMode ||
-                            _accentColor != _nwAccentColor ||
-                            _transparencyEnabled != _nwTransparencyEnabled)
-                        {
-                            ThemeOptionsChanged?.Invoke(_watcher,
-                                new ThemeOptionsChangedEventArgs(
-                                    _nwAppThemeMode, _nwWinThemeMode, 
-                                    _nwAccentColor, _nwTransparencyEnabled, _options));
+                                _options.Add(ThemeOptions.AccentColor);
+                                _options.Add(ThemeOptions.AccentForeColor);
+                            }
 
-                            _winThemeMode = _nwWinThemeMode;
-                            _appThemeMode = _nwAppThemeMode;
-                            _accentColor = _nwAccentColor;
-                            _accentForeColor = GenerateAccentForeColor(_nwAccentColor);
-                            _transparencyEnabled = _nwTransparencyEnabled;
-                        }
-                    });
+                            if (args.ValueName == _transparencyKey)
+                            {
+                                _nwTransparencyEnabled = GetTransparencyRaw();
+                                _options.Add(ThemeOptions.Transparency);
+                            }
+
+                            if (_winThemeMode != _nwWinThemeMode ||
+                                _appThemeMode != _nwAppThemeMode ||
+                                _accentColor != _nwAccentColor ||
+                                _transparencyEnabled != _nwTransparencyEnabled)
+                            {
+                                ThemeOptionsChanged?.Invoke(_watcher,
+                                    new ThemeOptionsChangedEventArgs(
+                                        _nwAppThemeMode, _nwWinThemeMode,
+                                        _nwAccentColor, _nwTransparencyEnabled, _options));
+
+                                _winThemeMode = _nwWinThemeMode;
+                                _appThemeMode = _nwAppThemeMode;
+                                _accentColor = _nwAccentColor;
+                                _accentForeColor = GenerateAccentForeColor(_nwAccentColor);
+                                _transparencyEnabled = _nwTransparencyEnabled;
+                            }
+                        });
+                    }
                 }
             }
+            catch (Exception) { }
         }
 
         #endregion
