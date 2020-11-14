@@ -79,11 +79,11 @@ As seen, the `OptionsChanged` property is of a list type, defined as: `List<Them
 You can also access the theming options manually using the related properties:
 
 ```c#
-var appMode = ThemeListener.AppMode;                           // Get the App theme mode setting.
-var winMode = ThemeListener.WindowsMode;                       // Get the Windows theme mode setting.
-bool transparencyEnabled = ThemeListener.TransparencyEnabled;  // Get the Windows transparency setting.
-Color accentColor = ThemeListener.AccentColor;                 // Get the Windows accent color setting.
-Color accentForeColor = ThemeListener.AccentForeColor;         // Get the accent forecolor setting (generated).
+var appMode = ThemeListener.AppMode;                    // Get the App theme mode setting.
+var winMode = ThemeListener.WindowsMode;                // Get the Windows theme mode setting.
+bool transparent = ThemeListener.TransparencyEnabled;   // Get the Windows transparency setting.
+Color accentColor = ThemeListener.AccentColor;          // Get the Windows accent color setting.
+Color accentForeColor = ThemeListener.AccentForeColor;  // Get the accent forecolor setting (generated).
 ```
 
 The `AccentForeColor` is an internally generated color that is based on the accent color applied. This generally means that whenever the accent color changes, a contrasting foreground color that blends well with the accent color background is generated and provided.
