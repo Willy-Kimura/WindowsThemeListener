@@ -1,7 +1,7 @@
 # WindowsThemeListener
-[![nuget-downloads](https://img.shields.io/nuget/dt/BootMeUp?label=Downloads)](https://www.nuget.org/packages/BootMeUp/) [![wk-donate](https://img.shields.io/badge/BuyMeACoffee-Donate-orange.svg)](https://www.buymeacoffee.com/willykimura)
+[![nuget-downloads](https://img.shields.io/nuget/dt/WindowsThemeListener?label=Downloads)](https://www.nuget.org/packages/WindowsThemeListener/) [![wk-donate](https://img.shields.io/badge/SupportMe-Donate-orange.svg)](https://www.buymeacoffee.com/willykimura)
 
-**WindowsThemeListener (WTL)** is a .NET helper library that enables listening to Windows 10 theme and color settings. With **WTL**, your .NET applications can now automatically employ the current theme mode and accent colors applied in any modern Windows OS.
+**WindowsThemeListener (WTL)** is a library that listens to any modern Windows OS's theming and color settings. With this nifty library, your .NET applications can now automagically employ the current Windows theme mode and accent colors applied across all modern Windows Operating Systems.
 
 ![wtl-logo](Assets/Logo/wtl-logo-variant-lowres.png)
 
@@ -25,6 +25,6 @@ using WK.Libraries.WTL;
 
 ### Donate
 
-If you really like my projects and want to support me, consider donating via [BuyMeACoffee](https://www.buymeacoffee.com/willykimura). All donations are optional and are greatly appreciated. 🙏
+If you like my projects and would love to support me, consider donating via [BuyMeACoffee](https://www.buymeacoffee.com/willykimura). All donations are optional and are greatly appreciated. 🙏
 
-*Made with* 😊 *by* [*Willy Kimura*]([https://github.com/Willy-Kimura).
+*Made with* 💛 *by* [*Willy Kimura*]([https://github.com/Willy-Kimura).
