@@ -172,6 +172,6 @@ if (OS.Version >= 8) // If Windows 8 and higher...
 
 # Donate
 
-If you like my projects and would love to support me, consider donating via [BuyMeACoffee](https://www.buymeacoffee.com/willykimura). All donations are optional and are greatly appreciated. 🙏
+If you love my projects and would like to support me, consider donating via [BuyMeACoffee](https://www.buymeacoffee.com/willykimura). All donations are optional and are greatly appreciated.
 
 *Made with* 💛 *by* [*Willy Kimura*]([https://github.com/Willy-Kimura)
