@@ -66,11 +66,15 @@ If you would like to know which theme options were changed, use the `OptionsChan
 ```c#
 private void OnThemeOptionsChanged(object sender, ThemeListener.ThemeOptionsChangedEventArgs e)
 {
-    if (e.OptionsChanged.Contains(ThemeListener.ThemeOptions.WindowsMode))
+    if (e.OptionsChanged.Contains(ThemeListener.ThemeOptions.WindowsMode)) 
+    {
         // The Windows Theme Mode was changed.
+    }
 
-    if (e.OptionsChanged.Contains(ThemeListener.ThemeOptions.AppMode))
-        // The App Theme Mode was changed.
+    if (e.OptionsChanged.Contains(ThemeListener.ThemeOptions.AppMode)) 
+    {
+        // The App Theme Mode was changed.        
+    }
 }
 ```
 
