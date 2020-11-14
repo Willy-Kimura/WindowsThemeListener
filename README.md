@@ -25,7 +25,6 @@ To install via the [NuGet Package Manager](https://www.nuget.org/packages/Window
 - Supports accent forecolor generation based on accent color changes.
 - Supports enabling/disabling theme monitoring at runtime.
 - Super easy API for integrating with .NET applications.
-- Auto-runs on Windows 8 and higher.
 
 # Usage
 To begin with, once you've installed the library, ensure you import the namespace `WK.Libraries.WTL`:
@@ -117,26 +116,6 @@ To change the interval with which Windows Theme Listener uses to poll for change
 ThemeListener.Interval = 20000; // 20000 = 20secs.
 ```
 
-## Targeting Windows versions
-
-WTL also comes packaged with a helper class, `OS`, that lets you check the Windows version it's being run on. This is because Windows 7 and lower do not support the available theming options as shown in Windows 8 and higher.
-
-To check the Windows version, simply use the property `OS.Version` or `OS.MajorVersion`:
-
-```c#
-int ver = OS.Version;
-// Returns: 10 for Windows 10, 8 for Windows 8, 7 for Windows 7...
-```
-
-You can also choose to inform your users and/or disable theming when your application is running on Windows 7 and lower:
-
-```c#
-if (OS.Version >= 8) // If Windows 8 and higher...
-{
-    // Your code here.
-}
-```
-
 ## Windows Theming Explainer
 
 By default, Windows uses the term **modes** or better yet themes which can be set at either the application level or the system level.
@@ -170,6 +149,26 @@ By default, Windows uses the term **modes** or better yet themes which can be se
   ![choose-color-setting](Assets/Screenshots/win-choose-accent-color.png)
 
 As noted before, the `AccentForeColor` is an internally generated color that is based on the accent color applied.
+
+## Targeting Windows versions
+
+WTL also comes packaged with a helper class, `OS`, that lets you check the Windows version it's being run on. This is because Windows 7 and lower do not support the available theming options provided in Windows 8 and higher.
+
+To check the Windows version being run, use the property `OS.Version` or `OS.MajorVersion`:
+
+```c#
+int ver = OS.Version;
+// Returns: 10 for Windows 10, 8 for Windows 8, 7 for Windows 7...
+```
+
+You can also choose to inform your users and/or disable theming whenever your app is running on Windows 7 and lower:
+
+```c#
+if (OS.Version >= 8) // If Windows 8 and higher...
+{
+    // Your code here.
+}
+```
 
 # Donate
 
