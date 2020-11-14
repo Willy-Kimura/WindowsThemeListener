@@ -36,8 +36,8 @@ using WK.Libraries.WTL;
 Windows Theme Listener is a static library so no need for instantiation:
 
 ```c#
-ThemeListener.Enabled = true;                               // Enable listening to theme color changes.
-ThemeListener.ThemeOptionsChanged += OnThemeOptionsChanged; // Setup an event for listening to changes.
+ThemeListener.Enabled = true;                                // Enable listening to theme color changes.
+ThemeListener.ThemeOptionsChanged += OnThemeOptionsChanged;  // Setup an event for listening to changes.
 
 private void OnThemeOptionsChanged(object sender, ThemeListener.ThemeOptionsChangedEventArgs e)
 {
