@@ -40,11 +40,11 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controls\ThemeSwitch.cs">
+    <Compile Include="Controls\ToggleSwitch.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\ThemeSwitch.designer.cs">
-      <DependentUpon>ThemeSwitch.cs</DependentUpon>
+    <Compile Include="Controls\ToggleSwitch.designer.cs">
+      <DependentUpon>ToggleSwitch.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\OS.cs" />
     <Compile Include="Helpers\RegistryMonitor.cs" />
@@ -52,8 +52,8 @@
     <Compile Include="ThemeListener.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Controls\ThemeSwitch.resx">
-      <DependentUpon>ThemeSwitch.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\ToggleSwitch.resx">
+      <DependentUpon>ToggleSwitch.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

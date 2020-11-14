@@ -20,7 +20,7 @@ namespace WK.Libraries.WTL.Controls
     /// Implements the <see cref="System.Windows.Forms.UserControl" />
     /// </summary>
     /// <seealso cref="System.Windows.Forms.UserControl" />
-    partial class ThemeSwitch
+    partial class ToggleSwitch
     {
         /// <summary>
         /// 必需的设计器变量。

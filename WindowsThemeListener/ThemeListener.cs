@@ -29,7 +29,6 @@
 using System;
 using System.Drawing;
 using Microsoft.Win32;
-using System.Threading;
 using System.Diagnostics;
 using System.Windows.Forms;
 using WK.Libraries.WTL.Helpers;
@@ -140,19 +139,10 @@ namespace WK.Libraries.WTL
         /// Gets or sets the period in millseconds between Registry polls. 
         /// Default is 3000ms (3 seconds).
         /// </summary>
-        public static int PollingInterval
+        public static int Interval
         {
             get => _watcher.Period;
             set => _watcher.Period = value;
-        }
-
-        /// <summary>
-        /// Gets the currently applied applications theme mode.
-        /// </summary>
-        public static ThemeModes AppMode
-        {
-            get => GetAppMode();
-            private set => _appsThemeMode = value;
         }
 
         /// <summary>
@@ -162,6 +152,15 @@ namespace WK.Libraries.WTL
         {
             get => GetWindowsMode();
             private set => _winThemeMode = value;
+        }
+
+        /// <summary>
+        /// Gets the currently applied applications theme mode.
+        /// </summary>
+        public static ThemeModes AppMode
+        {
+            get => GetAppMode();
+            private set => _appsThemeMode = value;
         }
 
         /// <summary>
@@ -194,6 +193,25 @@ namespace WK.Libraries.WTL
         #endregion
 
         #region Methods
+
+        #region Public
+
+        /// <summary>
+        /// Generates a contrasting fore color based on a specified accent color.
+        /// </summary>
+        /// <param name="accentColor">
+        /// The accent color to use.
+        /// </param>
+        public static Color GenerateAccentForeColor(Color accentColor)
+        {
+            // Calculate the perceptive luminance (aka luma) - human eye favors green color. 
+            double luma = ((0.299 * accentColor.R) + (0.587 * accentColor.G) + (0.114 * accentColor.B)) / 255;
+
+            // Return black for bright colors, white for dark colors.
+            return luma > 0.5 ? Color.Black : Color.White;
+        }
+
+        #endregion
 
         #region Private
 
@@ -247,21 +265,6 @@ namespace WK.Libraries.WTL
                 Convert.ToInt32(Registry.GetValue(_regKey2, _accentColorKey, "")));
 
             return _accentColor;
-        }
-
-        /// <summary>
-        /// Generates a contrasting fore color based on a specified accent color.
-        /// </summary>
-        /// <param name="accent">
-        /// The accent color to use.
-        /// </param>
-        private static Color GenerateAccentForeColor(Color accent)
-        {
-            // Calculate the perceptive luminance (aka luma) - human eye favors green color... 
-            double luma = ((0.299 * accent.R) + (0.587 * accent.G) + (0.114 * accent.B)) / 255;
-
-            // Return black for bright colors, white for dark colors
-            return luma > 0.5 ? Color.Black : Color.White;
         }
 
         /// <summary>
