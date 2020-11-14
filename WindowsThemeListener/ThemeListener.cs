@@ -446,6 +446,7 @@ namespace WK.Libraries.WTL
                         if (args.ValueName == _accentColorKey)
                         {
                             _nwAccentColor = ColorTranslator.FromWin32(Convert.ToInt32(args.Value));
+
                             _options.Add(ThemeOptions.AccentColor);
                             _options.Add(ThemeOptions.AccentForeColor);
                         }
