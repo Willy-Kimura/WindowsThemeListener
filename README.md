@@ -118,7 +118,7 @@ ThemeListener.Interval = 20000; // 20000 = 20secs.
 
 ## Windows Theming Explainer
 
-By default, Windows uses the term **modes** or better yet themes which can be set at either the application level or the system level.
+Windows provides two standard theme modes which can be applied at either the *application* level or *system* level.
 
 *Let's see what each option does:*
 
