@@ -130,7 +130,7 @@ By default, Windows uses the term **modes** or better yet themes which can be se
 
   ![app-mode-setting](Assets/Screenshots/win-app-mode.png)
 
-> **Note:** 
+> ***Note:***
 >
 > The above two options, namely the `WindowsMode` and `AppMode` are only available once a user sets the default color to **Custom**:
 >
@@ -148,10 +148,10 @@ By default, Windows uses the term **modes** or better yet themes which can be se
 
   ![choose-color-setting](Assets/Screenshots/win-choose-accent-color.png)
 
-> As noted before, the `AccentForeColor` is an internally generated color that is based on the accent color applied.
+As noted before, the `AccentForeColor` is an internally generated color that is based on the accent color applied.
 
-### Donate
+# Donate
 
 If you like my projects and would love to support me, consider donating via [BuyMeACoffee](https://www.buymeacoffee.com/willykimura). All donations are optional and are greatly appreciated. 🙏
 
-*Made with* 💛 *by* [*Willy Kimura*]([https://github.com/Willy-Kimura).
+*Made with* 💛 *by* [*Willy Kimura*]([https://github.com/Willy-Kimura)
