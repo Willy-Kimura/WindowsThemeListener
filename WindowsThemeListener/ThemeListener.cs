@@ -8,7 +8,7 @@
  * Windows Theme Listener is a helper library that was birthed 
  * after a longing to see my applications blend-in with the new 
  * Windows 10 theming modes, that is, Dark and Light themes. 
- * How I searched through countless StackOverFlow questions! 
+ * It was quite surprising to realize that this space was empty. 
  * Oh well, eventually the hardwork had to be done by someone, 
  * so I set out to building a nifty helper library that would 
  * do just that and probably even more. Thus came "WTL" or 
