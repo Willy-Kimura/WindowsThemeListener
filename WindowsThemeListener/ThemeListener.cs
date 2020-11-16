@@ -123,14 +123,14 @@ namespace WK.Libraries.WTL
         public enum ThemeSettings
         {
             /// <summary>
-            /// The <see cref="WindowsMode"/> setting.
-            /// </summary>
-            WindowsMode,
-
-            /// <summary>
             /// The <see cref="AppMode"/> setting.
             /// </summary>
             AppMode,
+
+            /// <summary>
+            /// The <see cref="WindowsMode"/> setting.
+            /// </summary>
+            WindowsMode,
 
             /// <summary>
             /// The <see cref="AccentColor"/> setting.
