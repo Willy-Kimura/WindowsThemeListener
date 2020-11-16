@@ -77,10 +77,10 @@ namespace WK.Libraries.WTL
         private static bool _transparencyEnabled;
         private static bool _nwTransparencyEnabled;
 
-        private static ThemeModes _winThemeMode;
-        private static ThemeModes _appThemeMode;
-        private static ThemeModes _nwWinThemeMode;
-        private static ThemeModes _nwAppThemeMode;
+        private static ThemeModes _winThemeMode = ThemeModes.Light;
+        private static ThemeModes _appThemeMode = ThemeModes.Light;
+        private static ThemeModes _nwWinThemeMode = ThemeModes.Light;
+        private static ThemeModes _nwAppThemeMode = ThemeModes.Light;
 
         private static Color _accentColor;
         private static Color _nwAccentColor;
@@ -257,12 +257,16 @@ namespace WK.Libraries.WTL
         {
             try
             {
-                bool lightMode = Convert.ToBoolean(Registry.GetValue(_regKey, _appLightThemeKey, 0));
+                bool lightMode = Convert.ToBoolean(Registry.GetValue(_regKey, _appLightThemeKey, null));
+                var winMode = Registry.GetValue(_regKey, _winLightThemeKey, null);
 
                 if (lightMode)
                     _appThemeMode = ThemeModes.Light;
                 else
                     _appThemeMode = ThemeModes.Dark;
+
+                if (winMode == null)
+                    WindowsMode = _appThemeMode;
 
                 return _appThemeMode;
             }
@@ -279,12 +283,19 @@ namespace WK.Libraries.WTL
         {
             try
             {
-                bool lightMode = Convert.ToBoolean(Registry.GetValue(_regKey, _winLightThemeKey, 0));
-
-                if (lightMode)
-                    _winThemeMode = ThemeModes.Light;
+                var lightMode = Registry.GetValue(_regKey, _winLightThemeKey, null);
+                
+                if (lightMode == null)
+                {
+                    _winThemeMode = GetAppMode();
+                }
                 else
-                    _winThemeMode = ThemeModes.Dark;
+                {
+                    if (Convert.ToBoolean(lightMode))
+                        _winThemeMode = ThemeModes.Light;
+                    else
+                        _winThemeMode = ThemeModes.Dark;
+                }
 
                 return _winThemeMode;
             }
@@ -313,7 +324,7 @@ namespace WK.Libraries.WTL
             try
             {
                 _accentColor = ColorTranslator.FromWin32(
-                Convert.ToInt32(Registry.GetValue(_regKey2, _accentColorKey, "")));
+                    Convert.ToInt32(Registry.GetValue(_regKey2, _accentColorKey, null)));
 
                 return _accentColor;
             }
@@ -330,7 +341,8 @@ namespace WK.Libraries.WTL
         {
             try
             {
-                _transparencyEnabled = Convert.ToBoolean(Registry.GetValue(_regKey, _transparencyKey, 0));
+                _transparencyEnabled = Convert.ToBoolean(
+                    Registry.GetValue(_regKey, _transparencyKey, null));
 
                 return _transparencyEnabled;
             }
@@ -348,7 +360,8 @@ namespace WK.Libraries.WTL
         {
             try
             {
-                return Convert.ToBoolean(Registry.GetValue(_regKey, _transparencyKey, 0));
+                return Convert.ToBoolean(
+                    Registry.GetValue(_regKey, _transparencyKey, null));
             }
             catch (Exception)
             {
@@ -466,6 +479,7 @@ namespace WK.Libraries.WTL
                                 _options.Clear();
 
                             _options = new List<ThemeOptions>();
+                            var winMode = Registry.GetValue(_regKey, _winLightThemeKey, null);
 
                             if (args.ValueName == _winLightThemeKey)
                             {
@@ -477,6 +491,12 @@ namespace WK.Libraries.WTL
                             {
                                 _nwAppThemeMode = GetThemeMode((int)args.Value);
                                 _options.Add(ThemeOptions.AppMode);
+
+                                if (winMode == null)
+                                {
+                                    _nwWinThemeMode = _nwAppThemeMode;
+                                    _options.Add(ThemeOptions.WindowsMode);
+                                }
                             }
 
                             if (args.ValueName == _accentColorKey)

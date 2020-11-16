@@ -83,7 +83,7 @@ namespace Library.Demo
             }
         }
 
-        private void themeSwitch_CheckedChanged(object sender, EventArgs e)
+        private void toggleSwitch_CheckedChanged(object sender, EventArgs e)
         {
             ThemeListener.Enabled = tsEnable.Checked;
 
