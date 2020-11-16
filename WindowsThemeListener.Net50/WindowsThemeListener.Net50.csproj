@@ -4,8 +4,9 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
-    <AssemblyName>WTL.Demo.Net50</AssemblyName>
+    <AssemblyName>WTL.Net50.Demo</AssemblyName>
     <ApplicationIcon>Assets\wtl-icon.ico</ApplicationIcon>
+    <RootNamespace>WindowsThemeListener.Net50</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

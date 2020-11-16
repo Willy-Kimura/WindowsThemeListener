@@ -7,7 +7,7 @@
     <ProjectGuid>{1673B32E-20DC-4118-B25B-075339D4EA2C}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>Library.Demo</RootNamespace>
-    <AssemblyName>Library.Demo</AssemblyName>
+    <AssemblyName>WTL.Net40.Demo</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>

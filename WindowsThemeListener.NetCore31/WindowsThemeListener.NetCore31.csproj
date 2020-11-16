@@ -4,7 +4,7 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
-    <AssemblyName>WTL.Demo.Net50</AssemblyName>
+    <AssemblyName>WTL.Net31.Demo</AssemblyName>
     <ApplicationIcon>Assets\wtl-icon.ico</ApplicationIcon>
   </PropertyGroup>
 

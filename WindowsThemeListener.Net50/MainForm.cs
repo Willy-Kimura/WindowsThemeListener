@@ -41,6 +41,7 @@ namespace WindowsThemeListener.Net50
         /// </summary>
         public void TransitionColors(Color backColor, Color foreColor)
         {
+            BackColor = backColor;
             lblTitle.ForeColor = foreColor;
             lblAccentColor.ForeColor = foreColor;
             lblAccentColorVal.ForeColor = foreColor;
