@@ -87,10 +87,7 @@ namespace Library.Demo
         {
             ThemeListener.Enabled = tsEnable.Checked;
 
-            if (tsEnable.Checked)
-                lblEnabled.Text = "Enabled";
-            else
-                lblEnabled.Text = "Disabled";
+            lblEnabled.Text = tsEnable.Checked ? "Enabled" : "Disabled";
         }
 
         private void lblEnabled_Click(object sender, EventArgs e)
