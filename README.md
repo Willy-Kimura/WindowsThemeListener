@@ -1,7 +1,7 @@
 # WindowsThemeListener
 [![nuget-downloads](https://img.shields.io/nuget/dt/WindowsThemeListener?label=Downloads)](https://www.nuget.org/packages/WindowsThemeListener/) [![wk-donate](https://img.shields.io/badge/BuyMeACoffee-Donate-orange.svg)](https://www.buymeacoffee.com/willykimura)
 
-**WindowsThemeListener (WTL)** is a library that listens to all modern Windows theming and color settings. With this nifty library, your .NET applications can now easily employ the current Windows theme mode and accent colors as applied across all modern Windows Operating Systems.
+**WindowsThemeListener (WTL)** is a library that listens to modern Windows theming and color settings. With this nifty library, your .NET applications can now easily employ the current Windows theme mode and color accents as applied across all other modern Windows apps.
 
 <div align="center">
 
