@@ -3,9 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30406.217
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsThemeListener", "WindowsThemeListener\WindowsThemeListener.csproj", "{15033321-2919-453C-B023-159F2B0F3462}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WindowsThemeListener", "WindowsThemeListener\WindowsThemeListener.csproj", "{15033321-2919-453C-B023-159F2B0F3462}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsThemeListener.Demo", "WindowsThemeListener.Demo\WindowsThemeListener.Demo.csproj", "{1673B32E-20DC-4118-B25B-075339D4EA2C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsThemeListener.Net40", "WindowsThemeListener.Net40\WindowsThemeListener.Net40.csproj", "{1673B32E-20DC-4118-B25B-075339D4EA2C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WindowsThemeListener.NetCore31", "WindowsThemeListener.NetCore31\WindowsThemeListener.NetCore31.csproj", "{511F2506-ED54-4B58-92A6-5CE3C90572C0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WindowsThemeListener.Net50", "WindowsThemeListener.Net50\WindowsThemeListener.Net50.csproj", "{0DAD3354-6AE3-4652-9CBC-9ADF21AC45F0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{1673B32E-20DC-4118-B25B-075339D4EA2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1673B32E-20DC-4118-B25B-075339D4EA2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1673B32E-20DC-4118-B25B-075339D4EA2C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{511F2506-ED54-4B58-92A6-5CE3C90572C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{511F2506-ED54-4B58-92A6-5CE3C90572C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{511F2506-ED54-4B58-92A6-5CE3C90572C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{511F2506-ED54-4B58-92A6-5CE3C90572C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0DAD3354-6AE3-4652-9CBC-9ADF21AC45F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DAD3354-6AE3-4652-9CBC-9ADF21AC45F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DAD3354-6AE3-4652-9CBC-9ADF21AC45F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DAD3354-6AE3-4652-9CBC-9ADF21AC45F0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -42,10 +42,10 @@
             this.lblEnabled = new System.Windows.Forms.Label();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.tsEnable = new WK.Libraries.WTL.Controls.ToggleSwitch();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pbIcon = new System.Windows.Forms.PictureBox();
             this.lblTransparencyVal = new System.Windows.Forms.Label();
             this.lblTransparency = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbIcon)).BeginInit();
             this.SuspendLayout();
             // 
             // lblAppMode
@@ -194,16 +194,16 @@
             this.tsEnable.UncheckedSwitchColor = System.Drawing.Color.White;
             this.tsEnable.CheckedChanged += new System.EventHandler(this.toggleSwitch_CheckedChanged);
             // 
-            // pictureBox1
+            // pbIcon
             // 
-            this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(140, 137);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(22, 24);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 11;
-            this.pictureBox1.TabStop = false;
+            this.pbIcon.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.pbIcon.Image = ((System.Drawing.Image)(resources.GetObject("pbIcon.Image")));
+            this.pbIcon.Location = new System.Drawing.Point(140, 137);
+            this.pbIcon.Name = "pbIcon";
+            this.pbIcon.Size = new System.Drawing.Size(22, 24);
+            this.pbIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbIcon.TabIndex = 11;
+            this.pbIcon.TabStop = false;
             // 
             // lblTransparencyVal
             // 
@@ -232,10 +232,11 @@
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(568, 381);
             this.Controls.Add(this.lblTransparencyVal);
             this.Controls.Add(this.lblTransparency);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.pbIcon);
             this.Controls.Add(this.lblEnabled);
             this.Controls.Add(this.tsEnable);
             this.Controls.Add(this.lblAccentForeColorVal);
@@ -254,7 +255,7 @@
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Windows Theme Listener [Demo]";
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbIcon)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -274,7 +275,7 @@
         private WK.Libraries.WTL.Controls.ToggleSwitch tsEnable;
         private System.Windows.Forms.Label lblEnabled;
         private System.Windows.Forms.ToolTip toolTip;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pbIcon;
         private System.Windows.Forms.Label lblTransparencyVal;
         private System.Windows.Forms.Label lblTransparency;
     }
