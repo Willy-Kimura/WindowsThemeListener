@@ -30,35 +30,23 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            this.lblWindowsMode = new System.Windows.Forms.Label();
             this.lblAppMode = new System.Windows.Forms.Label();
+            this.lblWindowsMode = new System.Windows.Forms.Label();
             this.lblAccentColor = new System.Windows.Forms.Label();
             this.lblAccentColorVal = new System.Windows.Forms.Label();
-            this.lblAppModeVal = new System.Windows.Forms.Label();
             this.lblWindowsModeVal = new System.Windows.Forms.Label();
+            this.lblAppModeVal = new System.Windows.Forms.Label();
             this.lblTitle = new System.Windows.Forms.Label();
             this.lblAccentForeColorVal = new System.Windows.Forms.Label();
             this.lblAccentForeColor = new System.Windows.Forms.Label();
             this.lblEnabled = new System.Windows.Forms.Label();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.tsEnable = new WK.Libraries.WTL.Controls.ToggleSwitch();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblTransparencyVal = new System.Windows.Forms.Label();
             this.lblTransparency = new System.Windows.Forms.Label();
-            this.tsEnable = new WK.Libraries.WTL.Controls.ToggleSwitch();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // lblWindowsMode
-            // 
-            this.lblWindowsMode.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.lblWindowsMode.AutoSize = true;
-            this.lblWindowsMode.Font = new System.Drawing.Font("Segoe UI Semibold", 9F);
-            this.lblWindowsMode.ForeColor = System.Drawing.Color.Black;
-            this.lblWindowsMode.Location = new System.Drawing.Point(165, 177);
-            this.lblWindowsMode.Name = "lblWindowsMode";
-            this.lblWindowsMode.Size = new System.Drawing.Size(94, 15);
-            this.lblWindowsMode.TabIndex = 0;
-            this.lblWindowsMode.Text = "Windows Mode:";
             // 
             // lblAppMode
             // 
@@ -66,11 +54,23 @@
             this.lblAppMode.AutoSize = true;
             this.lblAppMode.Font = new System.Drawing.Font("Segoe UI Semibold", 9F);
             this.lblAppMode.ForeColor = System.Drawing.Color.Black;
-            this.lblAppMode.Location = new System.Drawing.Point(165, 196);
+            this.lblAppMode.Location = new System.Drawing.Point(165, 177);
             this.lblAppMode.Name = "lblAppMode";
             this.lblAppMode.Size = new System.Drawing.Size(66, 15);
-            this.lblAppMode.TabIndex = 1;
+            this.lblAppMode.TabIndex = 0;
             this.lblAppMode.Text = "App Mode:";
+            // 
+            // lblWindowsMode
+            // 
+            this.lblWindowsMode.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lblWindowsMode.AutoSize = true;
+            this.lblWindowsMode.Font = new System.Drawing.Font("Segoe UI Semibold", 9F);
+            this.lblWindowsMode.ForeColor = System.Drawing.Color.Black;
+            this.lblWindowsMode.Location = new System.Drawing.Point(165, 196);
+            this.lblWindowsMode.Name = "lblWindowsMode";
+            this.lblWindowsMode.Size = new System.Drawing.Size(94, 15);
+            this.lblWindowsMode.TabIndex = 1;
+            this.lblWindowsMode.Text = "Windows Mode:";
             // 
             // lblAccentColor
             // 
@@ -96,29 +96,29 @@
             this.lblAccentColorVal.TabIndex = 5;
             this.lblAccentColorVal.Text = "{value}";
             // 
-            // lblAppModeVal
-            // 
-            this.lblAppModeVal.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.lblAppModeVal.AutoSize = true;
-            this.lblAppModeVal.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.lblAppModeVal.ForeColor = System.Drawing.Color.Black;
-            this.lblAppModeVal.Location = new System.Drawing.Point(268, 196);
-            this.lblAppModeVal.Name = "lblAppModeVal";
-            this.lblAppModeVal.Size = new System.Drawing.Size(43, 15);
-            this.lblAppModeVal.TabIndex = 4;
-            this.lblAppModeVal.Text = "{value}";
-            // 
             // lblWindowsModeVal
             // 
             this.lblWindowsModeVal.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblWindowsModeVal.AutoSize = true;
             this.lblWindowsModeVal.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.lblWindowsModeVal.ForeColor = System.Drawing.Color.Black;
-            this.lblWindowsModeVal.Location = new System.Drawing.Point(268, 177);
+            this.lblWindowsModeVal.Location = new System.Drawing.Point(268, 196);
             this.lblWindowsModeVal.Name = "lblWindowsModeVal";
             this.lblWindowsModeVal.Size = new System.Drawing.Size(43, 15);
-            this.lblWindowsModeVal.TabIndex = 3;
+            this.lblWindowsModeVal.TabIndex = 4;
             this.lblWindowsModeVal.Text = "{value}";
+            // 
+            // lblAppModeVal
+            // 
+            this.lblAppModeVal.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lblAppModeVal.AutoSize = true;
+            this.lblAppModeVal.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.lblAppModeVal.ForeColor = System.Drawing.Color.Black;
+            this.lblAppModeVal.Location = new System.Drawing.Point(268, 177);
+            this.lblAppModeVal.Name = "lblAppModeVal";
+            this.lblAppModeVal.Size = new System.Drawing.Size(43, 15);
+            this.lblAppModeVal.TabIndex = 3;
+            this.lblAppModeVal.Text = "{value}";
             // 
             // lblTitle
             // 
@@ -171,6 +171,29 @@
             this.toolTip.SetToolTip(this.lblEnabled, "Enable/disable Theme Listener");
             this.lblEnabled.Click += new System.EventHandler(this.lblEnabled_Click);
             // 
+            // tsEnable
+            // 
+            this.tsEnable.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.tsEnable.BackColor = System.Drawing.Color.Transparent;
+            this.tsEnable.Checked = true;
+            this.tsEnable.CheckedBackColor = System.Drawing.Color.DodgerBlue;
+            this.tsEnable.CheckedForeColor = System.Drawing.Color.White;
+            this.tsEnable.CheckedSwitchColor = System.Drawing.Color.White;
+            this.tsEnable.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.tsEnable.Font = new System.Drawing.Font("Segoe UI", 5F);
+            this.tsEnable.Location = new System.Drawing.Point(468, 10);
+            this.tsEnable.Name = "tsEnable";
+            this.tsEnable.Size = new System.Drawing.Size(34, 19);
+            this.tsEnable.TabIndex = 9;
+            this.tsEnable.Texts = new string[] {
+        "Y",
+        "N"};
+            this.toolTip.SetToolTip(this.tsEnable, "Enable/disable Theme Listener");
+            this.tsEnable.UncheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(189)))), ((int)(((byte)(189)))));
+            this.tsEnable.UncheckedForeColor = System.Drawing.Color.White;
+            this.tsEnable.UncheckedSwitchColor = System.Drawing.Color.White;
+            this.tsEnable.CheckedChanged += new System.EventHandler(this.toggleSwitch_CheckedChanged);
+            // 
             // pictureBox1
             // 
             this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -206,29 +229,6 @@
             this.lblTransparency.TabIndex = 12;
             this.lblTransparency.Text = "Transparency:";
             // 
-            // tsEnable
-            // 
-            this.tsEnable.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.tsEnable.BackColor = System.Drawing.Color.Transparent;
-            this.tsEnable.Checked = true;
-            this.tsEnable.CheckedBackColor = System.Drawing.Color.DodgerBlue;
-            this.tsEnable.CheckedForeColor = System.Drawing.Color.White;
-            this.tsEnable.CheckedSwitchColor = System.Drawing.Color.White;
-            this.tsEnable.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.tsEnable.Font = new System.Drawing.Font("Segoe UI", 5F);
-            this.tsEnable.Location = new System.Drawing.Point(468, 10);
-            this.tsEnable.Name = "tsEnable";
-            this.tsEnable.Size = new System.Drawing.Size(34, 19);
-            this.tsEnable.TabIndex = 9;
-            this.tsEnable.Texts = new string[] {
-        "Y",
-        "N"};
-            this.toolTip.SetToolTip(this.tsEnable, "Enable/disable Theme Listener");
-            this.tsEnable.UncheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(189)))), ((int)(((byte)(189)))));
-            this.tsEnable.UncheckedForeColor = System.Drawing.Color.White;
-            this.tsEnable.UncheckedSwitchColor = System.Drawing.Color.White;
-            this.tsEnable.CheckedChanged += new System.EventHandler(this.toggleSwitch_CheckedChanged);
-            // 
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -242,11 +242,11 @@
             this.Controls.Add(this.lblAccentForeColor);
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.lblAccentColorVal);
-            this.Controls.Add(this.lblAppModeVal);
             this.Controls.Add(this.lblWindowsModeVal);
+            this.Controls.Add(this.lblAppModeVal);
             this.Controls.Add(this.lblAccentColor);
-            this.Controls.Add(this.lblAppMode);
             this.Controls.Add(this.lblWindowsMode);
+            this.Controls.Add(this.lblAppMode);
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.ForeColor = System.Drawing.Color.Black;
@@ -262,12 +262,12 @@
 
         #endregion
 
-        private System.Windows.Forms.Label lblWindowsMode;
         private System.Windows.Forms.Label lblAppMode;
+        private System.Windows.Forms.Label lblWindowsMode;
         private System.Windows.Forms.Label lblAccentColor;
         private System.Windows.Forms.Label lblAccentColorVal;
-        private System.Windows.Forms.Label lblAppModeVal;
         private System.Windows.Forms.Label lblWindowsModeVal;
+        private System.Windows.Forms.Label lblAppModeVal;
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Label lblAccentForeColorVal;
         private System.Windows.Forms.Label lblAccentForeColor;

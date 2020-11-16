@@ -25,14 +25,9 @@ namespace WK.Libraries.WTL.Helpers
         #region Public
 
         /// <summary>
-        /// Returns the Windows major version number for this computer.
+        /// Returns the Windows version installed.
         /// </summary>
-        public static uint Version => MajorVersion;
-
-        /// <summary>
-        /// Returns the Windows major version number for this computer.
-        /// </summary>
-        public static uint MajorVersion
+        public static uint Version
         {
             get
             {
@@ -41,7 +36,7 @@ namespace WK.Libraries.WTL.Helpers
                 // The 'CurrentMajorVersionNumber' string value in the CurrentVersion key is new for Windows 10, 
                 // and will most likely (hopefully) be there for some time before MS decides to change this - again.
                 if (TryGetRegistryKey(
-                    @"SOFTWARE\Microsoft\Windows NT\CurrentVersion", 
+                    @"SOFTWARE\Microsoft\Windows NT\CurrentVersion",
                     "CurrentMajorVersionNumber", out major))
                 {
                     return (uint)major;
@@ -56,52 +51,12 @@ namespace WK.Libraries.WTL.Helpers
 
                 var versionParts = ((string)version).Split('.');
 
-                if (versionParts.Length != 2) 
+                if (versionParts.Length != 2)
                     return 0;
 
                 uint majorAsUInt;
 
                 return uint.TryParse(versionParts[0], out majorAsUInt) ? majorAsUInt : 0;
-            }
-        }
-
-        /// <summary>
-        /// Returns the Windows minor version number for this computer.
-        /// </summary>
-        public static uint MinorVersion
-        {
-            get
-            {
-                dynamic minor;
-
-                // The 'CurrentMinorVersionNumber' string value in the CurrentVersion key is new for Windows 10, 
-                // and will most likely (hopefully) be there for some time before MS decides to change this - again.
-                if (TryGetRegistryKey(
-                    @"SOFTWARE\Microsoft\Windows NT\CurrentVersion", 
-                    "CurrentMinorVersionNumber", out minor))
-                {
-                    return (uint)minor;
-                }
-
-                // When the 'CurrentMinorVersionNumber' value is not present, we 
-                // fallback to reading the previous key used for this: 'CurrentVersion'
-                dynamic version;
-
-                if (!TryGetRegistryKey(
-                    @"SOFTWARE\Microsoft\Windows NT\CurrentVersion", 
-                    "CurrentVersion", out version))
-                {
-                    return 0;
-                }
-
-                var versionParts = ((string)version).Split('.');
-
-                if (versionParts.Length != 2) 
-                    return 0;
-
-                uint minorAsUInt;
-
-                return uint.TryParse(versionParts[1], out minorAsUInt) ? minorAsUInt : 0;
             }
         }
 

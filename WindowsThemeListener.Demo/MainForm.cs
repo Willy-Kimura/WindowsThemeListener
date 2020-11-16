@@ -16,7 +16,7 @@ namespace Library.Demo
             InitializeComponent();
             UpdateThemeInfo();
 
-            ThemeListener.ThemeOptionsChanged += OnThemeOptionsChanged;
+            ThemeListener.ThemeSettingsChanged += OnThemeSettingsChanged;
         }
 
         #endregion
@@ -28,8 +28,8 @@ namespace Library.Demo
         /// </summary>
         public void UpdateThemeInfo()
         {
-            lblWindowsModeVal.Text = ThemeListener.WindowsMode.ToString();
-            lblAppModeVal.Text = ThemeListener.AppMode.ToString();
+            lblAppModeVal.Text = ThemeListener.WindowsMode.ToString();
+            lblWindowsModeVal.Text = ThemeListener.AppMode.ToString();
             lblAccentColorVal.Text = ThemeListener.AccentColor.ToString();
             lblAccentForeColorVal.Text = ThemeListener.AccentForeColor.ToString();
             lblTransparencyVal.Text = ThemeListener.TransparencyEnabled ? "Enabled" : "Disabled";
@@ -49,10 +49,10 @@ namespace Library.Demo
             labelTransitions.add(lblTitle, "ForeColor", foreColor);
             labelTransitions.add(lblAccentColor, "ForeColor", foreColor);
             labelTransitions.add(lblAccentColorVal, "ForeColor", foreColor);
-            labelTransitions.add(lblAppMode, "ForeColor", foreColor);
-            labelTransitions.add(lblAppModeVal, "ForeColor", foreColor);
             labelTransitions.add(lblWindowsMode, "ForeColor", foreColor);
             labelTransitions.add(lblWindowsModeVal, "ForeColor", foreColor);
+            labelTransitions.add(lblAppMode, "ForeColor", foreColor);
+            labelTransitions.add(lblAppModeVal, "ForeColor", foreColor);
             labelTransitions.add(lblAccentForeColor, "ForeColor", foreColor);
             labelTransitions.add(lblAccentForeColorVal, "ForeColor", foreColor);
             labelTransitions.add(lblTransparency, "ForeColor", foreColor);
@@ -65,18 +65,18 @@ namespace Library.Demo
 
         #region Events
 
-        private void OnThemeOptionsChanged(object sender, ThemeListener.ThemeOptionsChangedEventArgs e)
+        private void OnThemeSettingsChanged(object sender, ThemeListener.ThemeSettingsChangedEventArgs e)
         {
-            if (e.OptionsChanged.Contains(ThemeListener.ThemeOptions.WindowsMode))
-                lblWindowsModeVal.Text = e.WindowsMode.ToString();
+            if (e.SettingsChanged.Contains(ThemeListener.ThemeSettings.WindowsMode))
+                lblAppModeVal.Text = e.WindowsMode.ToString();
 
-            if (e.OptionsChanged.Contains(ThemeListener.ThemeOptions.AppMode))
-                lblAppModeVal.Text = e.AppMode.ToString();
+            if (e.SettingsChanged.Contains(ThemeListener.ThemeSettings.AppMode))
+                lblWindowsModeVal.Text = e.AppMode.ToString();
 
-            if (e.OptionsChanged.Contains(ThemeListener.ThemeOptions.Transparency))
+            if (e.SettingsChanged.Contains(ThemeListener.ThemeSettings.Transparency))
                 lblTransparencyVal.Text = e.TransparencyEnabled ? "Enabled" : "Disabled";
 
-            if (e.OptionsChanged.Contains(ThemeListener.ThemeOptions.AccentColor))
+            if (e.SettingsChanged.Contains(ThemeListener.ThemeSettings.AccentColor))
             {
                 lblAccentColorVal.Text = e.AccentColor.ToString();
                 TransitionColors(e.AccentColor, e.AccentForeColor);
