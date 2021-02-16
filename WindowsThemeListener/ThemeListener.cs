@@ -60,10 +60,10 @@ namespace WK.Libraries.WTL
             _nwTransparencyEnabled = GetTransparency();
 
             _watcher = new RegistryMonitor(
-                new Tuple<string, string>(_regKey, _transparencyKey),
-                new Tuple<string, string>(_regKey, _appLightThemeKey),
-                new Tuple<string, string>(_regKey, _winLightThemeKey),
-                new Tuple<string, string>(_regKey2, _accentColorKey));
+                new Tuple<string, string>(_regPath, _transparencyKey),
+                new Tuple<string, string>(_regPath, _appLightThemeKey),
+                new Tuple<string, string>(_regPath, _winLightThemeKey),
+                new Tuple<string, string>(_regPath2, _accentColorKey));
 
             _invoker.CreateControl();
             _watcher.RegistryChanged += RegistryChanged;
@@ -77,21 +77,21 @@ namespace WK.Libraries.WTL
         private static bool _transparencyEnabled;
         private static bool _nwTransparencyEnabled;
 
-        private static ThemeModes _winThemeMode = ThemeModes.Light;
-        private static ThemeModes _appThemeMode = ThemeModes.Light;
-        private static ThemeModes _nwWinThemeMode = ThemeModes.Light;
-        private static ThemeModes _nwAppThemeMode = ThemeModes.Light;
+        private static string _accentColorKey = "AccentColor";
+        private static string _transparencyKey = "EnableTransparency";
+        private static string _appLightThemeKey = "AppsUseLightTheme";
+        private static string _winLightThemeKey = "SystemUsesLightTheme";
+        private static string _regPath = @"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize";
+        private static string _regPath2 = @"HKEY_CURRENT_USER\Software\Microsoft\Windows\DWM";
 
         private static Color _accentColor;
         private static Color _nwAccentColor;
         private static Color _accentForeColor;
 
-        private static string _accentColorKey = "AccentColor";
-        private static string _transparencyKey = "EnableTransparency";
-        private static string _appLightThemeKey = "AppsUseLightTheme";
-        private static string _winLightThemeKey = "SystemUsesLightTheme";
-        private static string _regKey = @"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize";
-        private static string _regKey2 = @"HKEY_CURRENT_USER\Software\Microsoft\Windows\DWM";
+        private static ThemeModes _winThemeMode = ThemeModes.Light;
+        private static ThemeModes _appThemeMode = ThemeModes.Light;
+        private static ThemeModes _nwWinThemeMode = ThemeModes.Light;
+        private static ThemeModes _nwAppThemeMode = ThemeModes.Light;
 
         private static RegistryMonitor _watcher;
         private static List<ThemeSettings> _options;
@@ -257,8 +257,8 @@ namespace WK.Libraries.WTL
         {
             try
             {
-                bool lightMode = Convert.ToBoolean(Registry.GetValue(_regKey, _appLightThemeKey, null));
-                var winMode = Registry.GetValue(_regKey, _winLightThemeKey, null);
+                bool lightMode = Convert.ToBoolean(Registry.GetValue(_regPath, _appLightThemeKey, null));
+                var winMode = Registry.GetValue(_regPath, _winLightThemeKey, null);
 
                 if (lightMode)
                     _appThemeMode = ThemeModes.Light;
@@ -283,7 +283,7 @@ namespace WK.Libraries.WTL
         {
             try
             {
-                var lightMode = Registry.GetValue(_regKey, _winLightThemeKey, null);
+                var lightMode = Registry.GetValue(_regPath, _winLightThemeKey, null);
                 
                 if (lightMode == null)
                 {
@@ -324,7 +324,7 @@ namespace WK.Libraries.WTL
             try
             {
                 _accentColor = ColorTranslator.FromWin32(
-                    Convert.ToInt32(Registry.GetValue(_regKey2, _accentColorKey, null)));
+                    Convert.ToInt32(Registry.GetValue(_regPath2, _accentColorKey, null)));
 
                 return _accentColor;
             }
@@ -342,7 +342,7 @@ namespace WK.Libraries.WTL
             try
             {
                 _transparencyEnabled = Convert.ToBoolean(
-                    Registry.GetValue(_regKey, _transparencyKey, null));
+                    Registry.GetValue(_regPath, _transparencyKey, null));
 
                 return _transparencyEnabled;
             }
@@ -361,7 +361,7 @@ namespace WK.Libraries.WTL
             try
             {
                 return Convert.ToBoolean(
-                    Registry.GetValue(_regKey, _transparencyKey, null));
+                    Registry.GetValue(_regPath, _transparencyKey, null));
             }
             catch (Exception)
             {
@@ -483,7 +483,7 @@ namespace WK.Libraries.WTL
                                 _options.Clear();
 
                             _options = new List<ThemeSettings>();
-                            var winMode = Registry.GetValue(_regKey, _winLightThemeKey, null);
+                            var winMode = Registry.GetValue(_regPath, _winLightThemeKey, null);
 
                             if (args.ValueName == _winLightThemeKey)
                             {

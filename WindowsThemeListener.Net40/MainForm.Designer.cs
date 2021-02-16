@@ -192,7 +192,7 @@
             this.tsEnable.UncheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(189)))), ((int)(((byte)(189)))));
             this.tsEnable.UncheckedForeColor = System.Drawing.Color.White;
             this.tsEnable.UncheckedSwitchColor = System.Drawing.Color.White;
-            this.tsEnable.CheckedChanged += new System.EventHandler(this.toggleSwitch_CheckedChanged);
+            this.tsEnable.CheckedChanged += new System.EventHandler(this.tsEnable_CheckedChanged);
             // 
             // pbIcon
             // 

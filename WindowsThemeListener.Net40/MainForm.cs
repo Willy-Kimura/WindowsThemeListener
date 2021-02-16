@@ -68,10 +68,24 @@ namespace Library.Demo
         private void OnThemeSettingsChanged(object sender, ThemeListener.ThemeSettingsChangedEventArgs e)
         {
             if (e.SettingsChanged.Contains(ThemeListener.ThemeSettings.WindowsMode))
+            {
                 lblAppModeVal.Text = e.WindowsMode.ToString();
 
+                if (e.WindowsMode == ThemeListener.ThemeModes.Light)
+                    TransitionColors(Color.White, Color.Black);
+                else if (e.WindowsMode == ThemeListener.ThemeModes.Dark)
+                    TransitionColors(Color.Black, Color.White);
+            }
+
             if (e.SettingsChanged.Contains(ThemeListener.ThemeSettings.AppMode))
+            {
                 lblWindowsModeVal.Text = e.AppMode.ToString();
+
+                if (e.AppMode == ThemeListener.ThemeModes.Light)
+                    TransitionColors(Color.White, Color.Black);
+                else if (e.AppMode == ThemeListener.ThemeModes.Dark)
+                    TransitionColors(Color.Black, Color.White);
+            }
 
             if (e.SettingsChanged.Contains(ThemeListener.ThemeSettings.Transparency))
                 lblTransparencyVal.Text = e.TransparencyEnabled ? "Enabled" : "Disabled";
@@ -83,7 +97,7 @@ namespace Library.Demo
             }
         }
 
-        private void toggleSwitch_CheckedChanged(object sender, EventArgs e)
+        private void tsEnable_CheckedChanged(object sender, EventArgs e)
         {
             ThemeListener.Enabled = tsEnable.Checked;
 

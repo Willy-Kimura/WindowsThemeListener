@@ -62,10 +62,24 @@ namespace WindowsThemeListener.Net50
         private void OnThemeSettingsChanged(object sender, ThemeListener.ThemeSettingsChangedEventArgs e)
         {
             if (e.SettingsChanged.Contains(ThemeListener.ThemeSettings.WindowsMode))
+            {
                 lblAppModeVal.Text = e.WindowsMode.ToString();
 
+                if (e.WindowsMode == ThemeListener.ThemeModes.Light)
+                    TransitionColors(Color.White, Color.Black);
+                else if (e.WindowsMode == ThemeListener.ThemeModes.Dark)
+                    TransitionColors(Color.Black, Color.White);
+            }
+
             if (e.SettingsChanged.Contains(ThemeListener.ThemeSettings.AppMode))
+            {
                 lblWindowsModeVal.Text = e.AppMode.ToString();
+
+                if (e.AppMode == ThemeListener.ThemeModes.Light)
+                    TransitionColors(Color.White, Color.Black);
+                else if (e.AppMode == ThemeListener.ThemeModes.Dark)
+                    TransitionColors(Color.Black, Color.White);
+            }
 
             if (e.SettingsChanged.Contains(ThemeListener.ThemeSettings.Transparency))
                 lblTransparencyVal.Text = e.TransparencyEnabled ? "Enabled" : "Disabled";
