@@ -9,7 +9,7 @@
     <Company>Willy Kimura</Company>
     <Product>WindowsThemeListener</Product>
     <Description>WindowsThemeListener is a library that listens to modern Windows theming and color settings. With this nifty library, your .NET applications can now easily employ the current Windows theme mode and color accents as applied across all other modern Windows apps.</Description>
-    <Copyright>Copyright © 2020, Willy Kimura.</Copyright>
+    <Copyright>Copyright © 2021, Willy Kimura.</Copyright>
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
